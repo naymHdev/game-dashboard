@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --color-main: #2f4f4f;
+  --color-secondary: #252728;
+  --color-main-bg: #1b1b20;
+  --color-section-bg: #252728;
+  --color-menu-item: #fff;
+  --color-text-color: #fff;
+  --color-primary-green: #41ab5d;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --color-main: #9668ef;
+  }
+} */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ant-menu-title-content {
+  font-size: 18px;
+  color: #ffffff;
+  padding-left: 10px;
+}
+
+.ant-menu-item > svg {
+  color: #ffffff !important;
+}
+
+.sidebar-menu {
+  background-color: var(--color-secondary) !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.quill {
+  border: "2px solid #fff" !important;
+}
+
+.ql-toolbar {
+  margin-bottom: 12px !important;
+  display: flex;
+  justify-content: end;
+  border: none !important;
+}
+
+.ql-formats {
+  background-color: white;
+  border-radius: 3px;
+}
+
+.ql-container {
+  /* background-color: white; */
+  color: var(--color-text-color) !important;
+  height: 620px !important;
+  border: none !important;
+  border-radius: 10px;
+  overflow: auto !important;
+}
+
+.ant-menu-item-selected {
+  color: var(--color-menu-item) !important;
+}
+.ant-menu-item-selected > span > a {
+  color: var(--color-menu-item) !important;
+  font-size: 18px;
+}
+
+.ant-menu-item-selected > svg {
+  color: var(--color-menu-item) !important;
+}
+
+/* ant design upload related style */
+.ant-upload-list-item {
+  background-color: var(--color-main) !important;
+  color: #ffffff !important;
+  max-width: 200px !important;
+}
+.anticon-delete > svg {
+  fill: red !important;
+}
+
+.ant-dropdown-menu-item-selected {
+  background-color: var(--color-main) !important;
+  color: #ffffff !important;
+}
