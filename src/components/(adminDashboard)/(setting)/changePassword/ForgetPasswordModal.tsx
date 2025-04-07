@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, ConfigProvider, Form, Input, Modal } from "antd";
 import { RiCloseLargeLine } from "react-icons/ri";
 import VerifyEmailModal from "./VerifyEmailModal";
 import { useState } from "react";
@@ -32,7 +32,7 @@ const ForgetPasswordModal = ({ open, setOpen }: TPropsType) => {
       >
         <div className="py-14">
           <div
-            className="w-12 h-12 bg-[#D7263D]  absolute top-0 right-0 rounded-bl-3xl cursor-pointer"
+            className="w-12 h-12 bg-main-color  absolute top-2 right-2 rounded-full cursor-pointer"
             onClick={() => setOpen(false)}
           >
             <RiCloseLargeLine
@@ -53,28 +53,48 @@ const ForgetPasswordModal = ({ open, setOpen }: TPropsType) => {
           </div>
 
           {/* form */}
-          <Form
-            form={form}
-            onFinish={handleSubmit}
-            layout="vertical"
-            style={{
-              maxWidth: 500,
-              marginTop: "25px",
+          <ConfigProvider
+            theme={{
+              components: {
+                Input: {
+                  colorBgContainer: "var(--color-primary-gray)",
+                  colorText: "#fff",
+                  colorTextPlaceholder: "#fff",
+                },
+                Form: {
+                  labelColor: "#fff",
+                },
+              },
             }}
           >
-            {/*  input  email */}
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ type: "email", required: true }]}
+            <Form
+              form={form}
+              onFinish={handleSubmit}
+              layout="vertical"
+              style={{
+                maxWidth: 500,
+                marginTop: "25px",
+              }}
             >
-              <Input size="large" placeholder="Enter Your Email "></Input>
-            </Form.Item>
+              {/*  input  email */}
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[{ type: "email", required: true }]}
+              >
+                <Input size="large" placeholder="Enter Your Email "></Input>
+              </Form.Item>
 
-            <Button htmlType="submit" size="large" block>
-              Send OTP
-            </Button>
-          </Form>
+              <Button
+                htmlType="submit"
+                size="large"
+                block
+                className="!border-none "
+              >
+                Send OTP
+              </Button>
+            </Form>
+          </ConfigProvider>
         </div>
       </Modal>
       <VerifyEmailModal

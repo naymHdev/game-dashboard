@@ -17,6 +17,8 @@ const config: Config = {
         "section-bg": "var(--color-section-bg)",
         "text-color": "var(--color-text-color)",
         "primary-green": "var(--color-primary-green)",
+        "primary-red": "var(--color-primary-red)",
+        "primary-gray": "var(--color-primary-gray)",
       },
     },
   },

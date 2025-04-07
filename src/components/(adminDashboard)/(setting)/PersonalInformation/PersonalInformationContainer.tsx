@@ -72,7 +72,7 @@ const PersonalInformationContainer = () => {
 
       {/* personal information */}
       <div className="mt-10 flex justify-center flex-col xl:flex-row items-center  gap-10">
-        <div className="bg-[#EFE8FD] h-[365px] md:w-[350px] rounded-xl border border-[#8D2E7D] flex justify-center items-center ">
+        <div className="bg-primary-gray h-[365px] md:w-[350px] rounded-xl border border-main-color flex justify-center items-center  text-text-color">
           <div className="space-y-1 relative">
             <div className="relative group">
               <Image
@@ -114,7 +114,6 @@ const PersonalInformationContainer = () => {
               </label>
             </div>
             <h3 className="text-2xl text-center">Admin</h3>
-            <h5 className="text-lg text-center">Profile</h5>
           </div>
         </div>
         {/* form */}
@@ -123,7 +122,9 @@ const PersonalInformationContainer = () => {
             theme={{
               components: {
                 Input: {
-                  colorBgContainer: "#EFE8FD",
+                  colorBgContainer: "var(--color-primary-gray)",
+                  colorText: "#fff",
+                  colorTextPlaceholder: "#fff",
                 },
                 Form: {
                   labelColor: "#fff",

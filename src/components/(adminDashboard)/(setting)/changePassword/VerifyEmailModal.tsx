@@ -32,7 +32,7 @@ const VerifyEmailModal = ({ open, setOpen }: TPropsType) => {
       >
         <div className="py-14">
           <div
-            className="w-12 h-12 bg-[#D7263D]  absolute top-0 right-0 rounded-bl-3xl cursor-pointer"
+            className="w-12 h-12 bg-main-color  absolute top-2 right-2 rounded-full cursor-pointer"
             onClick={() => setOpen(false)}
           >
             <RiCloseLargeLine
@@ -71,14 +71,19 @@ const VerifyEmailModal = ({ open, setOpen }: TPropsType) => {
               <Input.OTP size="large" />
             </Form.Item>
 
-            <div className="mb-5 flex justify-between px-12">
+            <div className="mb-5 flex justify-between px-12 text-text-color">
               <p>Didn’t receive the code?</p>
               <p className="text-main-color font-medium cursor-pointer">
                 Resend
               </p>
             </div>
 
-            <Button htmlType="submit" size="large" block>
+            <Button
+              htmlType="submit"
+              size="large"
+              block
+              className="!border-none "
+            >
               Send OPT
             </Button>
           </Form>

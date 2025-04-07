@@ -12,19 +12,15 @@ const UserRequestContainer = () => {
     },
     {
       key: "2",
-      label: "Rider",
-    },
-    {
-      key: "3",
-      label: "Broker",
+      label: "User",
     },
   ];
   const userData = {
     name: "Dianne Russell",
-    type: "Broker",
+    type: "User",
   };
   return (
-    <div className="min-h-[80vh] bg-section-bg px-4 py-2 rounded-md">
+    <div className="min-h-[80vh] bg-section-bg px-4 py-2 rounded-md text-text-color">
       <div className="flex items-center justify-between py-4">
         <h1 className="text-2xl font-bold w-full text-primary-white">
           User Requests
@@ -35,9 +31,14 @@ const UserRequestContainer = () => {
             size="large"
             placeholder="Search..."
             prefix={<IoIosSearch size={20} />}
-            className="max-w-md xl:min-w-[300px] w-full"
+            className=" xl:min-w-[500px]"
           />
-          <Dropdown menu={{ items }} placement="bottomLeft" arrow>
+          <Dropdown
+            menu={{ items }}
+            placement="bottomLeft"
+            arrow
+            className="!border-none"
+          >
             <Button className="text-primary-white bg-primary-orange py-4">
               <ArrowDownWideNarrowIcon size={16} /> Filter
             </Button>

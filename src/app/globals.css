@@ -14,6 +14,8 @@
   --color-menu-item: #fff;
   --color-text-color: #fff;
   --color-primary-green: #41ab5d;
+  --color-primary-red: #b84d4d;
+  --color-primary-gray: #323232;
 }
 
 /* @media (prefers-color-scheme: dark) {

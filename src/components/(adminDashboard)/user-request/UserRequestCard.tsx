@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import userProfile from "@/assets/image/userProfile.png";
+import userProfile from "@/assets/image/userImage.png";
 import { Button, message, Popconfirm, PopconfirmProps } from "antd";
 import { useState } from "react";
-import UserDetails from "../user/UserDetails";
+import UserModal from "./UserModal";
 
 type TProps = {
   name: string;
@@ -16,11 +16,11 @@ const UserRequestCard = ({ data }: { data: TProps }) => {
     message.success("Successfully blocked this user");
   };
   return (
-    <div className="bg-primary-white p-4 flex gap-x-3 rounded">
+    <div className="bg-main-color-bg p-4 flex gap-x-3  text-text-color rounded-md">
       <Image
         src={userProfile}
         alt="profile_image"
-        className="size-20 cursor-pointer"
+        className="size-20 cursor-pointer rounded-full"
         onClick={() => setOpen(true)}
       ></Image>
       <div className="space-y-2 ">
@@ -28,14 +28,14 @@ const UserRequestCard = ({ data }: { data: TProps }) => {
           className="text-xl font-bold cursor-pointer"
           onClick={() => setOpen(true)}
         >
-          {data?.type}
+          {data?.name}
         </h3>
         <p>
-          Account Type: <span className="font-medium">{data?.name}</span>
+          Account Type: <span className="font-medium">{data?.type}</span>
         </p>
 
         <div className="flex gap-x-5">
-          <Button className="bg-primary-orange text-primary-white rounded-none rounded-tl-lg  rounded-br-lg">
+          <Button className="bg-main-colo !border-none  !rounded-none !rounded-tl-xl  !rounded-br-xl !px-5">
             Accept
           </Button>
 
@@ -46,13 +46,13 @@ const UserRequestCard = ({ data }: { data: TProps }) => {
             okText="Yes"
             cancelText="No"
           >
-            <Button className="border-primary-orange text-primary-orange rounded-none rounded-tl-lg  rounded-br-lg">
+            <Button className="!bg-primary-red !border-none   !rounded-none !rounded-tl-xl  !rounded-br-xl !px-5">
               Delete
             </Button>
           </Popconfirm>
         </div>
       </div>
-      <UserDetails open={open} setOpen={setOpen}></UserDetails>
+      <UserModal open={open} setOpen={setOpen}></UserModal>
     </div>
   );
 };
