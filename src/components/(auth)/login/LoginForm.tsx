@@ -55,10 +55,10 @@ const LoginForm = () => {
       <Form.Item<FieldType> name="remember" valuePropName="checked">
         <Flex justify="space-between" align="center">
           <Checkbox>
-            <p className="text-text-color font-semibold">Remember me</p>
+            <p className=" font-semibold">Remember me</p>
           </Checkbox>
           <Link href={"/forget-password"} style={{ textDecoration: "" }}>
-            <p className="font-semibold text-text-color">Forgot Password?</p>
+            <p className="font-semibold">Forgot Password?</p>
           </Link>
         </Flex>
       </Form.Item>

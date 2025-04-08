@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, Badge, Button, Flex } from "antd";
+import { Avatar, Badge, Flex } from "antd";
 import { FaBars } from "react-icons/fa6";
 import { IoNotificationsOutline } from "react-icons/io5";
 import avatarImg from "@/assets/image/profile.png";
@@ -52,7 +52,7 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
           </div>
         </Link>
 
-        <Link href={"/personalInformation"} className="flex items-center">
+        <Link href={"/personal-information"} className="flex items-center">
           <Avatar
             src={avatarImg.src}
             size={48}
