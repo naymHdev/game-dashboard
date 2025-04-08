@@ -7,7 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 const links = [
   {
     lable: "Personal Information",
-    path: "personalInformation",
+    path: "personal-information",
   },
   {
     lable: "Change Password",
@@ -15,15 +15,15 @@ const links = [
   },
   {
     lable: "Terms & Condition",
-    path: "termsCondition",
+    path: "terms-condition",
   },
   {
     lable: "Privacy Policy",
-    path: "privacyPolicy",
+    path: "privacy-policy",
   },
   {
     lable: "About Us",
-    path: "aboutUs",
+    path: "about-us",
   },
 ];
 
@@ -42,7 +42,7 @@ const SettingContainer = () => {
               <h4 className="text-text-color font-medium text-lg">
                 {link?.lable}
               </h4>
-              <IoIosArrowForward size={18} color="black" />
+              <IoIosArrowForward size={18} color="#fff" />
             </div>
           );
         } else {
@@ -52,7 +52,7 @@ const SettingContainer = () => {
                 <h4 className="text-text-color font-medium text-lg">
                   {link?.lable}
                 </h4>
-                <IoIosArrowForward size={18} color="black" />
+                <IoIosArrowForward size={18} color="#fff" />
               </div>
             </Link>
           );

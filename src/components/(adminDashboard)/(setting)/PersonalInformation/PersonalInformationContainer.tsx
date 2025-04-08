@@ -18,7 +18,6 @@ const PersonalInformationContainer = () => {
 
   // @ts-expect-error: Ignoring TypeScript error due to inferred 'any' type for 'values' which is handled in the form submit logic
   const handleSubmit = (values) => {
-    console.log("Success:", values);
     toast.success("Successfully Change personal information", {
       duration: 1000,
     });
@@ -47,9 +46,12 @@ const PersonalInformationContainer = () => {
   return (
     <div>
       <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <span onClick={() => route.back()} className="cursor-pointer">
-            <FaArrowLeft size={24} color="#fff" />
+        <div className="flex items-center gap-3">
+          <span
+            onClick={() => route.back()}
+            className="cursor-pointer bg-main-color p-2 rounded-full"
+          >
+            <FaArrowLeft size={20} color="#fff" />
           </span>
           <h4 className="text-2xl font-medium text-text-color">
             Personal Information
@@ -69,6 +71,7 @@ const PersonalInformationContainer = () => {
           </Button>
         </div>
       </div>
+      <hr className="my-4" />
 
       {/* personal information */}
       <div className="mt-10 flex justify-center flex-col xl:flex-row items-center  gap-10">

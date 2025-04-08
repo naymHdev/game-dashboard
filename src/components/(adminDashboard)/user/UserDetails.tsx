@@ -30,33 +30,33 @@ const UserDetails = ({ open, setOpen }: TPropsType) => {
             <RiCloseLargeLine size={18} color="#fff" className="" />
           </div>
         </div>
-        <div className="mt-10">
+        <div className="mt-10 space-y-4">
           <div className="flex justify-between">
             <h4>User name :</h4>
             <p className="font-medium">James Tracy</p>
           </div>
-          <Divider></Divider>
+          <hr />
           <div className="flex justify-between">
             <h4>Email :</h4>
             <p className="font-medium">james1234@gmail.com</p>
           </div>
-          <Divider></Divider>
+          <hr />
           <div className="flex justify-between">
             <h4>Age :</h4>
             <p className="font-medium">35 Year</p>
           </div>
 
-          <Divider></Divider>
+          <hr />
           <div className="flex justify-between">
             <h4>Gender :</h4>
             <p className="font-medium">Male</p>
           </div>
-          <Divider></Divider>
+          <hr />
           <div className="flex justify-between">
             <h4>Account Types :</h4>
             <p className="font-medium">User</p>
           </div>
-          <Divider></Divider>
+          <hr />
           <div className="flex justify-between">
             <h4>Location :</h4>
             <p className="font-medium">California</p>
