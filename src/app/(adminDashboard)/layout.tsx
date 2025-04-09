@@ -4,14 +4,36 @@ import { ReactNode, useState } from "react";
 import { ConfigProvider, Layout, theme } from "antd";
 import SidebarContainer from "@/components/(adminDashboard)/layout/SidebarContainer";
 import HeaderContainer from "@/components/(adminDashboard)/layout/HeaderContainer";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import { useMediaQuery } from "@react-hook/media-query";
 
 const { Content } = Layout;
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
-  const [collapsed, setCollapsed] = useState(false);
+  // Check if small screen
+  const screenSizeLessThan1300 = useMediaQuery(
+    "only screen and (max-width: 1300px)"
+  );
+
+  const [collapsed, setCollapsed] = useState(
+    screenSizeLessThan1300 ? true : false
+  );
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  // Show prompt to collapse sidebar if screen size is less than 1300px
+  useEffect(() => {
+    if (screenSizeLessThan1300) {
+      toast.warning(
+        "Small screen detected! Please set your browser in desktop mode for better experience.",
+        {
+          duration: 2500,
+        }
+      );
+    }
+  }, [screenSizeLessThan1300]);
 
   return (
     <ConfigProvider

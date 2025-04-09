@@ -23,7 +23,7 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
           <FaBars size={28} />
         </button>
         <div className="flex flex-col ">
-          <h2 className="text-2xl  font-medium">
+          <h2 className="md:text-2xl text-lg  font-medium">
             Welcome, Saiid Romeo
             <span className="block  text-sm font-normal">Have a nice day!</span>
           </h2>
@@ -56,7 +56,7 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
           <Avatar
             src={avatarImg.src}
             size={48}
-            className="border border-main-color"
+            className="border border-main-color size-12"
           ></Avatar>
         </Link>
       </Flex>

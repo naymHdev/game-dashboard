@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={poppins.className}>
         <AntdRegistry>
           <ConfigProvider theme={antTheme}>
-            <Toaster />
+            <Toaster position="top-center" />
             {children}
           </ConfigProvider>
         </AntdRegistry>
