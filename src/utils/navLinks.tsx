@@ -5,6 +5,7 @@ import { CgGames } from "react-icons/cg";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import Link from "next/link";
 import { PiListPlusFill } from "react-icons/pi";
+import { FilePenLine } from "lucide-react";
 
 export const navLinks = [
   {
@@ -16,6 +17,11 @@ export const navLinks = [
     key: "games",
     icon: <CgGames size={18} />,
     label: <Link href={"/games"}>Games</Link>,
+  },
+  {
+    key: "game-edit-request",
+    icon: <FilePenLine size={20} />,
+    label: <Link href={"/game-edit-request"}>Game Edit Requests</Link>,
   },
   {
     key: "users",

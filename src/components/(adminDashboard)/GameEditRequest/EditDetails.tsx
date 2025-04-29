@@ -1,4 +1,6 @@
-import { Divider, Modal } from "antd";
+"use client";
+
+import { Modal } from "antd";
 import { RiCloseLargeLine } from "react-icons/ri";
 
 type TPropsType = {
@@ -6,7 +8,7 @@ type TPropsType = {
   setOpen: (collapsed: boolean) => void;
 };
 
-const GameDetails = ({ open, setOpen }: TPropsType) => {
+const EditDetails = ({ open, setOpen }: TPropsType) => {
   return (
     <Modal
       open={open}
@@ -22,7 +24,7 @@ const GameDetails = ({ open, setOpen }: TPropsType) => {
     >
       <div className="pb-20 ">
         <div className="flex justify-between items-center">
-          <h4 className="text-center text-xl font-medium">Game Details</h4>
+          <h4 className="text-center text-xl font-medium">Game Edit Details</h4>
           <div
             className="w-10 h-10 bg-main-color  rounded-full flex justify-center items-center cursor-pointer"
             onClick={() => setOpen(false)}
@@ -31,11 +33,11 @@ const GameDetails = ({ open, setOpen }: TPropsType) => {
           </div>
         </div>
         <div className="mt-10 space-y-4">
-          <div>Game details hare...</div>
+          <p>Game edit details hare...</p>
         </div>
       </div>
     </Modal>
   );
 };
 
-export default GameDetails;
+export default EditDetails;
