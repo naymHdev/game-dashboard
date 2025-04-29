@@ -24,8 +24,8 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
         </button>
         <div className="flex flex-col ">
           <h2 className="md:text-2xl text-lg  font-medium">
-            Welcome, Saiid Romeo
-            <span className="block  text-sm font-normal">Have a nice day!</span>
+            Welcome, Avinash
+            <span className="block  text-sm font-normal">Have a great day!</span>
           </h2>
         </div>
       </Flex>

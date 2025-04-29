@@ -28,7 +28,7 @@ const Statistic = () => {
       {/* ====================================== Total User ========================================== */}
       <div className="flex flex-col gap-y-3 justify-center p-4 h-[165px] flex-1 bg-section-bg rounded-xl">
         <div className="flex justify-between items-center">
-          <h3 className=" xl:text-2xl text-xl truncate">Total User</h3>
+          <h3 className=" xl:text-2xl text-xl truncate">Total Users</h3>
           <h1 className="">
             <ConfigProvider
               theme={{
@@ -78,7 +78,7 @@ const Statistic = () => {
       {/* ====================================== Total Vendor ========================================== */}
       <div className="flex flex-col gap-y-3 justify-center p-4 h-[165px] flex-1 bg-section-bg rounded-xl">
         <div className="flex justify-between items-center">
-          <h3 className=" xl:text-2xl text-xl truncate">Total Vendor</h3>
+          <h3 className=" xl:text-2xl text-xl truncate">Upcoming Release</h3>
           <h1 className="">
             <ConfigProvider
               theme={{
@@ -129,7 +129,7 @@ const Statistic = () => {
       <div className="flex flex-col gap-y-3 justify-center p-4 h-[165px] flex-1 bg-section-bg rounded-xl">
         <div className="flex justify-between items-center">
           <h3 className=" xl:text-2xl text-xl truncate">
-            Total Product Listed
+            Total Game Listed
           </h3>
           <h1 className="">
             <ConfigProvider

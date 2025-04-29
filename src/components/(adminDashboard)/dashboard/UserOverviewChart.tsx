@@ -51,7 +51,7 @@ const UserOverviewChart = () => {
             onChange={handleUserChange}
             options={[
               { value: "user", label: "User" },
-              { value: "vendor", label: "Vendor" },
+              { value: "publisher", label: "Publisher" },
             ]}
           />
         </h1>
