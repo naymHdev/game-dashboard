@@ -50,11 +50,7 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
       {/* logo  */}
       <div className="mt-10 flex flex-col justify-center items-center gap-y-5">
         <Link href={"/"}>
-          <Image
-            src={logo}
-            alt="logo_Image"
-            className={` ${collapsed ? "size-16" : "size-32"}`}
-          />
+          <h2 className=" text-5xl font-extrabold text-white">Logo</h2>
         </Link>
         <h1
           className={`${
