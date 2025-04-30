@@ -56,23 +56,6 @@ const Statistic = () => {
           </h1>
         </div>
         <p className="xl:text-3xl text-2xl font-medium ">2,500</p>
-        <div className="flex items-center gap-x-2">
-          <div className="bg-white flex items-center gap-x-2 !rounded-full px-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="#000"
-                d="M20 8v2h6.586L18 18.586l-4.293-4.293a1 1 0 0 0-1.414 0L2 24.586L3.414 26L13 16.414l4.293 4.293a1 1 0 0 0 1.414 0L28 11.414V18h2V8Z"
-              />
-            </svg>
-            <p className="text-primary-green font-medium text-lg">4%</p>
-          </div>
-          <p className="text-gray-300">From the last month</p>
-        </div>
       </div>
 
       {/* ====================================== Total Vendor ========================================== */}
@@ -106,31 +89,12 @@ const Statistic = () => {
           </h1>
         </div>
         <p className="xl:text-3xl text-2xl font-medium ">500</p>
-        <div className="flex items-center gap-x-2">
-          <div className="bg-white flex items-center gap-x-2 !rounded-full px-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="#000"
-                d="M20 8v2h6.586L18 18.586l-4.293-4.293a1 1 0 0 0-1.414 0L2 24.586L3.414 26L13 16.414l4.293 4.293a1 1 0 0 0 1.414 0L28 11.414V18h2V8Z"
-              />
-            </svg>
-            <p className="text-primary-green font-medium text-lg">4%</p>
-          </div>
-          <p className="text-gray-300">From the last month</p>
-        </div>
       </div>
 
       {/* ====================================== Total Vendor ========================================== */}
       <div className="flex flex-col gap-y-3 justify-center p-4 h-[165px] flex-1 bg-section-bg rounded-xl">
         <div className="flex justify-between items-center">
-          <h3 className=" xl:text-2xl text-xl truncate">
-            Total Game Listed
-          </h3>
+          <h3 className=" xl:text-2xl text-xl truncate">Total Game Listed</h3>
           <h1 className="">
             <ConfigProvider
               theme={{
@@ -158,23 +122,6 @@ const Statistic = () => {
           </h1>
         </div>
         <p className="xl:text-3xl text-2xl font-medium ">45000</p>
-        <div className="flex items-center gap-x-2">
-          <div className="bg-white flex items-center gap-x-2 !rounded-full px-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="#000"
-                d="M20 8v2h6.586L18 18.586l-4.293-4.293a1 1 0 0 0-1.414 0L2 24.586L3.414 26L13 16.414l4.293 4.293a1 1 0 0 0 1.414 0L28 11.414V18h2V8Z"
-              />
-            </svg>
-            <p className="text-primary-green font-medium text-lg">4%</p>
-          </div>
-          <p className="text-gray-300">From the last month</p>
-        </div>
       </div>
     </div>
   );
