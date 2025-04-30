@@ -6,24 +6,12 @@ import { IoIosArrowForward } from "react-icons/io";
 
 const links = [
   {
-    lable: "Personal Information",
-    path: "personal-information",
-  },
-  {
-    lable: "Change Password",
-    path: "changePassword",
-  },
-  {
     lable: "Terms & Condition",
     path: "terms-condition",
   },
   {
     lable: "Privacy Policy",
     path: "privacy-policy",
-  },
-  {
-    lable: "About Us",
-    path: "about-us",
   },
 ];
 
