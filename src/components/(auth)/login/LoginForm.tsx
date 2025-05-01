@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success:", values);
-    route.push("/dashboard");
+    // route.push("/dashboard");
   };
 
   return (

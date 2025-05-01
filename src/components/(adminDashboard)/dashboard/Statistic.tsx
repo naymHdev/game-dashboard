@@ -1,4 +1,5 @@
 "use client";
+
 import { ConfigProvider, Select } from "antd";
 import { useState } from "react";
 
@@ -17,8 +18,10 @@ const monthsData = [
   { value: "dec", label: "Dec" },
 ];
 
-const Statistic = () => {
+const Statistic =  () => {
   const [selectedMonth, setSelectedMonth] = useState("Apr");
+
+
 
   const handleMonthChange = (value: string) => {
     setSelectedMonth(value);
