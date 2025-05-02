@@ -2,24 +2,25 @@
 
 import { cookies } from "next/headers";
 
-export const getDashboardStatistics = async () => {
+const token = cookies().get("accessToken")?.value;
+
+export const dashBoardStatics = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/admin/dashboard`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard`,
       {
         method: "GET",
         headers: {
-          Authorization: (await cookies()).get("accessToken")!.value || "",
+          Authorization: token ? `Bearer ${token}` : "",
           "Content-Type": "application/json",
         },
         next: {
-          tags: ["STATISTICS"],
+          tags: ["GAME"],
         },
         cache: "no-store",
       }
     );
-
-    return res.json();
+    return await res.json();
   } catch (error: any) {
     return Error(error);
   }

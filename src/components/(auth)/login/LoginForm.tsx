@@ -1,14 +1,11 @@
 "use client";
+import { FieldType } from "@/types";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input, Flex } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type FieldType = {
-  email?: string;
-  password?: string;
-  remember?: string;
-};
+
 
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
