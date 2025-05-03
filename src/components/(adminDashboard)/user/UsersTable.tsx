@@ -6,6 +6,7 @@ import {
   Popconfirm,
   PopconfirmProps,
   TableProps,
+  Tag,
 } from "antd";
 import UserDetails from "./UserDetails";
 import { useState } from "react";
@@ -67,6 +68,15 @@ const UsersTable = ({ usersData }: { usersData: IUser[] }) => {
         />
       ),
       onFilter: (value, record) => record.type.indexOf(value as string) === 0,
+    },
+    {
+      title: "Status",
+      dataIndex: "approvedUpdate",
+      render: (approved: boolean) => (
+        <Tag color={approved ? "green" : "orange"}>
+          {approved ? "Approved" : "Pending"}
+        </Tag>
+      ),
     },
     {
       title: "Action",
