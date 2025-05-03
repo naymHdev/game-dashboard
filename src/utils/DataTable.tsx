@@ -1,28 +1,50 @@
-import { Table } from "antd";
+import { Table, TablePaginationConfig } from "antd";
+import type { ColumnsType } from "antd/es/table";
 
-const DataTable = ({
+interface Meta {
+  page: number;
+  limit: number;
+  total: number;
+}
+
+interface DataTableProps<T> {
+  columns: ColumnsType<T>;
+  data?: T[];
+  pageSize?: number;
+  usersData?: {
+    allUsers: T[];
+    meta: Meta;
+  };
+}
+
+const DataTable = <T extends { id?: string }>({
   columns,
   data,
   pageSize,
-}: {
-  columns: any;
-  data: any;
-  pageSize?: number;
-}) => {
-  return pageSize ? (
+  usersData,
+}: DataTableProps<T>) => {
+  const dataSource = usersData?.allUsers || data || [];
+
+  const pagination: TablePaginationConfig | false = usersData
+    ? {
+        current: usersData.meta.page,
+        pageSize: usersData.meta.limit,
+        total: usersData.meta.total,
+        showTotal: (total) => `Total ${total} items`,
+        onChange: (page, pageSize) => {
+          console.log("Page changed to", page, "with pageSize", pageSize);
+        },
+      }
+    : false;
+
+  return (
     <Table
       columns={columns}
-      dataSource={data}
-      pagination={{ pageSize: pageSize }}
+      dataSource={dataSource}
+      pagination={pagination}
+      rowKey={(record) => record.id || Math.random().toString()}
       scroll={{ x: "max-content" }}
-    ></Table>
-  ) : (
-    <Table
-      columns={columns}
-      dataSource={data}
-      pagination={false}
-      scroll={{ x: "max-content" }}
-    ></Table>
+    />
   );
 };
 
