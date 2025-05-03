@@ -5,6 +5,7 @@ import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input, Flex } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = async (
   errorInfo
@@ -20,12 +21,23 @@ const LoginForm = () => {
 
     try {
       const res = await adminSignIn(values);
-      console.log(res);
+      // console.log(res);
+      if (res.success) {
+        toast.success("Successfully Login", {
+          duration: 1000,
+        });
+        route.push("/dashboard");
+      } else {
+        toast.error(res.message, {
+          duration: 1000,
+        });
+      }
     } catch (error) {
+      toast.error("Internal server error", {
+        duration: 1000,
+      });
       console.log(error);
     }
-
-    // route.push("/dashboard");
   };
 
   return (

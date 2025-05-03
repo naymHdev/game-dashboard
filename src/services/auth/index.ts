@@ -1,6 +1,7 @@
 "use server";
 import { FieldType } from "@/types";
 import { cookies } from "next/headers";
+import { jwtDecode } from "jwt-decode";
 
 export const adminSignIn = async (userData: FieldType) => {
   try {
@@ -24,6 +25,39 @@ export const adminSignIn = async (userData: FieldType) => {
     }
 
     return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+export const getCurrentUser = async () => {
+  const accessToken = (await cookies()).get("accessToken")?.value;
+  let decodedData = null;
+
+  if (accessToken) {
+    decodedData = await jwtDecode(accessToken);
+    return decodedData;
+  } else {
+    return null;
+  }
+};
+
+export const logout = async () => {
+  (await cookies()).delete("accessToken");
+};
+
+export const allUser = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/find_all_users`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value || "",
+        },
+      }
+    );
+    return await res.json();
   } catch (error: any) {
     return Error(error);
   }

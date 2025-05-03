@@ -7,7 +7,7 @@ const token = cookies().get("accessToken")?.value;
 export const dashBoardStatics = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard`,
+      `https://gaming-showcase-backend.onrender.com/api/v1/admin/dashboard`,
       {
         method: "GET",
         headers: {
@@ -22,6 +22,6 @@ export const dashBoardStatics = async () => {
     );
     return await res.json();
   } catch (error: any) {
-    return Error(error);
+    return Error(error);  
   }
 };

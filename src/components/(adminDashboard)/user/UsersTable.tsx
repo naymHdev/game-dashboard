@@ -12,32 +12,18 @@ import { useState } from "react";
 import DataTable from "@/utils/DataTable";
 import { CgUnblock } from "react-icons/cg";
 import { ArrowDownWideNarrowIcon, Eye, Search } from "lucide-react";
-
-type TDataType = {
-  key?: number;
-  serial: number;
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-  type: string;
-};
-const data: TDataType[] = Array.from({ length: 18 }).map((data, inx) => ({
-  key: inx,
-  serial: inx + 1,
-  name: "James Tracy",
-  email: "james1234@gmail.comm",
-  phone: "12345678",
-  date: "11 Oct, 2024",
-  type: "User",
-}));
+import { IUser } from "@/types";
+import moment from "moment";
+import { TDataType } from "@/types/userTable";
 
 const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
   console.log(e);
   message.success("Blocked the user");
 };
 
-const UsersTable = () => {
+const UsersTable = ({ usersData }: { usersData: IUser[] }) => {
+  console.log("usersData", usersData);
+
   const [open, setOpen] = useState(false);
 
   const columns: TableProps<TDataType>["columns"] = [
@@ -49,9 +35,9 @@ const UsersTable = () => {
       title: "User Name",
       dataIndex: "name",
       render: (text, record) => (
-        <div className="flex items-center gap-x-1">
+        <div className="flex items-center gap-x-2">
           <Image
-            src={"/user-profile.png"}
+            src={record.photo || "/user-profile.png"}
             alt="profile-picture"
             width={40}
             height={40}
@@ -65,28 +51,15 @@ const UsersTable = () => {
       title: "Email",
       dataIndex: "email",
     },
-
-    {
-      title: "Phone number",
-      dataIndex: "phone",
-    },
     {
       title: "Join Date",
-      dataIndex: "date",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt: string) => moment(createdAt).format("YYYY-MM-DD"),
     },
     {
       title: "Acc Type",
-      dataIndex: "type",
-      filters: [
-        {
-          text: "User",
-          value: "User",
-        },
-        {
-          text: "Vendor",
-          value: "vendor",
-        },
-      ],
+      dataIndex: "role",
       filterIcon: () => (
         <ArrowDownWideNarrowIcon
           className="flex justify-start items-start"
@@ -122,14 +95,18 @@ const UsersTable = () => {
   return (
     <div className="bg-section-bg rounded-md">
       <div className="flex justify-between items-center px-10 py-5">
-        <h1 className="  text-2xl text-text-color">Accounts</h1>
+        <h1 className="  text-2xl text-text-color">All Users</h1>
         <Input
           className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
           placeholder="Search Users..."
           prefix={<Search size={20} color="#000"></Search>}
         ></Input>
       </div>
-      <DataTable columns={columns} data={data} pageSize={10}></DataTable>
+      <DataTable
+        columns={columns}
+        data={usersData.allUsers}
+        pageSize={10}
+      ></DataTable>
       <UserDetails open={open} setOpen={setOpen}></UserDetails>
     </div>
   );
