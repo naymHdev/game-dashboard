@@ -1,12 +1,15 @@
-import { Divider, Modal } from "antd";
+import { IUser } from "@/types";
+import { Modal } from "antd";
 import { RiCloseLargeLine } from "react-icons/ri";
 
 type TPropsType = {
   open: boolean;
   setOpen: (collapsed: boolean) => void;
+  user: IUser | null;
 };
 
-const UserDetails = ({ open, setOpen }: TPropsType) => {
+const UserDetails = ({ open, setOpen, user }: TPropsType) => {
+  // console.log(user);
   return (
     <Modal
       open={open}
@@ -33,34 +36,25 @@ const UserDetails = ({ open, setOpen }: TPropsType) => {
         <div className="mt-10 space-y-4">
           <div className="flex justify-between">
             <h4>User name :</h4>
-            <p className="font-medium">James Tracy</p>
+            <p className="font-medium">{user?.name}</p>
           </div>
+          {user?.bio && (
+            <div className="flex justify-between">
+              <h4>Bio :</h4>
+              <p className="font-medium">{user?.bio}</p>
+            </div>
+          )}
           <hr />
           <div className="flex justify-between">
             <h4>Email :</h4>
-            <p className="font-medium">james1234@gmail.com</p>
-          </div>
-          <hr />
-          <div className="flex justify-between">
-            <h4>Age :</h4>
-            <p className="font-medium">35 Year</p>
-          </div>
-
-          <hr />
-          <div className="flex justify-between">
-            <h4>Gender :</h4>
-            <p className="font-medium">Male</p>
+            <p className="font-medium">{user?.email}</p>
           </div>
           <hr />
           <div className="flex justify-between">
             <h4>Account Types :</h4>
-            <p className="font-medium">User</p>
+            <p className="font-medium">{user?.role}</p>
           </div>
           <hr />
-          <div className="flex justify-between">
-            <h4>Location :</h4>
-            <p className="font-medium">California</p>
-          </div>
         </div>
       </div>
     </Modal>

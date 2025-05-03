@@ -10,20 +10,12 @@ import DataTable from "@/utils/DataTable";
 import { IUser } from "@/types";
 import { TDataType } from "@/types/userTable";
 
-interface Props {
-  usersData: {
-    allUsers: IUser[];
-    meta: {
-      page: number;
-      limit: number;
-      total: number;
-    };
-  };
-}
-
 const UsersTable = ({
   usersData,
+}: {
+  usersData: { allUsers: IUser[]; meta: any };
 }) => {
+  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [open, setOpen] = useState(false);
 
   const confirmBlock = () => {
@@ -85,7 +77,10 @@ const UsersTable = ({
           <Eye
             size={22}
             className="cursor-pointer"
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setSelectedUser(record);
+              setOpen(true);
+            }}
           />
           <Popconfirm
             title="Block the user"
@@ -112,7 +107,7 @@ const UsersTable = ({
         />
       </div>
       <DataTable columns={columns} usersData={usersData} pageSize={10} />
-      <UserDetails open={open} setOpen={setOpen} />
+      <UserDetails open={open} setOpen={setOpen} user={selectedUser} />
     </div>
   );
 };
