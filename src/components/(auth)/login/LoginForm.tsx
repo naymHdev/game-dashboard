@@ -1,21 +1,30 @@
 "use client";
+import { adminSignIn } from "@/services/auth";
 import { FieldType } from "@/types";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input, Flex } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-
-
-const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
+const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = async (
+  errorInfo
+) => {
   console.log("Failed:", errorInfo);
 };
 
 const LoginForm = () => {
   const route = useRouter();
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    // console.log("Success:", values);
+
+    try {
+      const res = await adminSignIn(values);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+
     // route.push("/dashboard");
   };
 

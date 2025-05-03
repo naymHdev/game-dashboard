@@ -1,13 +1,11 @@
 "use server";
-
 import { FieldType } from "@/types";
-import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-export const signIn = async (userData: FieldType) => {
+export const adminSignIn = async (userData: FieldType) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/admin/signup`,
+      `https://gaming-showcase-backend.onrender.com/api/v1/admin/login`,
       {
         method: "POST",
         headers: {
@@ -17,12 +15,14 @@ export const signIn = async (userData: FieldType) => {
       }
     );
 
-    revalidateTag("ADMIN");
     const result = await res.json();
     if (result.success) {
-      (await cookies()).set("accessToken", result.data.accessToken);
-      (await cookies()).set("refreshToken", result.data.refreshToken);
+      cookies().set("accessToken", result.data.accessToken, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 7,
+      });
     }
+
     return result;
   } catch (error: any) {
     return Error(error);

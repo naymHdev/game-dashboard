@@ -7,7 +7,7 @@ const DashboardPage = async () => {
 
   const StatisticData = await dashBoardStatics();
 
-  console.log("StatisticData", StatisticData );
+  // console.log("StatisticData", StatisticData );
 
   return (
     <div className="lg:space-y-10 space-y-5 ">
