@@ -1,10 +1,13 @@
 import AllGamesTable from "@/components/(adminDashboard)/Games";
+import { getAllGames } from "@/services/games";
 
-const AllGamesPage = () => {
+const AllGamesPage = async () => {
+  const gamesArray = await getAllGames();
+
   return (
     <>
       <div>
-        <AllGamesTable />
+        <AllGamesTable gamesArray={gamesArray} />
       </div>
     </>
   );

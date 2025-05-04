@@ -18,10 +18,10 @@ const monthsData = [
   { value: "dec", label: "Dec" },
 ];
 
-const Statistic =  () => {
+const Statistic = ({ StatisticData }: { StatisticData: any }) => {
+  // console.log("StatisticData", StatisticData);
+  const { totalUsers, totalUpcomingGames, totalGames } = StatisticData || {};
   const [selectedMonth, setSelectedMonth] = useState("Apr");
-
-
 
   const handleMonthChange = (value: string) => {
     setSelectedMonth(value);
@@ -45,7 +45,7 @@ const Statistic =  () => {
                 },
               }}
             >
-              <Select
+              {/* <Select
                 value={selectedMonth}
                 style={{
                   width: 80,
@@ -54,11 +54,11 @@ const Statistic =  () => {
                 onChange={handleMonthChange}
                 options={monthsData}
                 className="!border-none month-select rounded-full"
-              />
+              /> */}
             </ConfigProvider>
           </h1>
         </div>
-        <p className="xl:text-3xl text-2xl font-medium ">2,500</p>
+        <p className="xl:text-3xl text-2xl font-medium ">{totalUsers}</p>
       </div>
 
       {/* ====================================== Total Vendor ========================================== */}
@@ -78,7 +78,7 @@ const Statistic =  () => {
                 },
               }}
             >
-              <Select
+              {/* <Select
                 value={selectedMonth}
                 style={{
                   width: 80,
@@ -87,11 +87,13 @@ const Statistic =  () => {
                 onChange={handleMonthChange}
                 options={monthsData}
                 className="!border-none month-select rounded-full"
-              />
+              /> */}
             </ConfigProvider>
           </h1>
         </div>
-        <p className="xl:text-3xl text-2xl font-medium ">500</p>
+        <p className="xl:text-3xl text-2xl font-medium ">
+          {totalUpcomingGames}
+        </p>
       </div>
 
       {/* ====================================== Total Vendor ========================================== */}
@@ -111,7 +113,7 @@ const Statistic =  () => {
                 },
               }}
             >
-              <Select
+              {/* <Select
                 value={selectedMonth}
                 style={{
                   width: 80,
@@ -120,11 +122,11 @@ const Statistic =  () => {
                 onChange={handleMonthChange}
                 options={monthsData}
                 className="!border-none month-select rounded-full"
-              />
+              /> */}
             </ConfigProvider>
           </h1>
         </div>
-        <p className="xl:text-3xl text-2xl font-medium ">45000</p>
+        <p className="xl:text-3xl text-2xl font-medium ">{totalGames}</p>
       </div>
     </div>
   );

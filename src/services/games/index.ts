@@ -1,13 +1,17 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 export const getAllGames = async () => {
+  const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/admin/getAllGame`,
+      `https://gaming-showcase-backend.onrender.com/api/v1/admin/getAllGame`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
         },
         next: {
           tags: ["GAMES"],

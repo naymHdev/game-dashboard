@@ -25,9 +25,12 @@ const data = [
   { name: "Dec", users: 2105 },
 ];
 
-const UserOverviewChart = () => {
+const UserOverviewChart = ({ userStatistics }: { userStatistics: any }) => {
   const [selectedYear, setSelectedYear] = useState("2025");
   const [selectedUserType, setSelectedUserType] = useState("user");
+
+  const { totalUsers, totalUpcomingGames, totalGames } = userStatistics || {};
+  // console.log("StatisticData", userStatistics);
 
   const handleChange = (value: string) => {
     setSelectedYear(value);

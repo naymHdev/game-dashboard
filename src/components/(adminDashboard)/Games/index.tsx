@@ -6,11 +6,13 @@ import {
   Popconfirm,
   PopconfirmProps,
   TableProps,
+  Tag,
 } from "antd";
 import { useState } from "react";
 import DataTable from "@/utils/DataTable";
 import { Eye, Search, Trash } from "lucide-react";
 import GameDetails from "./GameDetails";
+import moment from "moment";
 
 type TDataType = {
   key?: number;
@@ -22,24 +24,16 @@ type TDataType = {
   price: string;
   gamePlatform: string[];
 };
-const data: TDataType[] = Array.from({ length: 18 }).map((data, inx) => ({
-  key: inx,
-  serial: inx + 1,
-  name: "James Tracy",
-  publisherEmail: "james1234@gmail.comm",
-  phone: "12345678",
-  date: "11 Oct, 2024",
-  price: "$9.80",
-  gamePlatform: ["Ios", "Android"],
-}));
 
 const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
   console.log(e);
   message.success("Blocked the user");
 };
 
-const AllGamesTable = () => {
+const AllGamesTable = ({ gamesArray }: { gamesArray: any }) => {
+  console.log(gamesArray);
   const [open, setOpen] = useState(false);
+  const [isGameDetails, setIsGameDetails] = useState(null);
 
   const columns: TableProps<TDataType>["columns"] = [
     {
@@ -48,19 +42,7 @@ const AllGamesTable = () => {
     },
     {
       title: "Game Name",
-      dataIndex: "name",
-      render: (text, record) => (
-        <div className="flex items-center gap-x-1">
-          <Image
-            src={"/user-profile.png"}
-            alt="profile-picture"
-            width={40}
-            height={40}
-            className="size-10"
-          ></Image>
-          <p>{text}</p>
-        </div>
-      ),
+      dataIndex: "game_title",
     },
     {
       title: "Publisher Email",
@@ -68,11 +50,20 @@ const AllGamesTable = () => {
     },
     {
       title: "Game Platforms",
-      dataIndex: "gamePlatform",
+      dataIndex: "platform",
+      render: (platforms: string[]) => (
+        <>
+          {platforms?.map((platform) => (
+            <Tag key={platform}>{platform}</Tag>
+          ))}
+        </>
+      ),
     },
+
     {
       title: "Publish Date",
-      dataIndex: "date",
+      dataIndex: "createdAt",
+      render: (date: string) => moment(date).format("YYYY-MM-DD"),
     },
     {
       title: "Game Price",
@@ -81,12 +72,15 @@ const AllGamesTable = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => (
+      render: (_, record) => (
         <div className="flex gap-2 ">
           <Eye
             size={22}
             color="var(--color-text-color)"
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setIsGameDetails(record);
+              setOpen(true);
+            }}
           />
           <Popconfirm
             title="Delete the game"
@@ -112,8 +106,12 @@ const AllGamesTable = () => {
           prefix={<Search size={20} color="#000"></Search>}
         ></Input>
       </div>
-      <DataTable columns={columns} data={data} pageSize={10}></DataTable>
-      <GameDetails open={open} setOpen={setOpen} />
+      <DataTable
+        columns={columns}
+        data={gamesArray.data.allGames}
+        pageSize={10}
+      ></DataTable>
+      <GameDetails open={open} setOpen={setOpen} details={isGameDetails} />
     </div>
   );
 };
