@@ -1,10 +1,12 @@
 import UserRequestContainer from "@/components/(adminDashboard)/user-request/UserRequestContainer";
-import React from "react";
+import { getAllUserRequests } from "@/services/users";
 
-const UserRequestPage = () => {
+const UserRequestPage = async () => {
+  const userData = await getAllUserRequests();
+
   return (
     <div>
-      <UserRequestContainer></UserRequestContainer>
+      <UserRequestContainer userData={userData} />
     </div>
   );
 };

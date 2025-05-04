@@ -58,6 +58,7 @@ const UserModal = ({ open, setOpen }: TPropsType) => {
               .fill(0)
               .map((_, index) => (
                 <div
+                  key={index}
                   onClick={handleDownloadFile}
                   className="bg-gray-300 cursor-pointer p-2 rounded w-fit "
                 >

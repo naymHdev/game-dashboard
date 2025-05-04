@@ -7,4 +7,5 @@ export type TDataType = {
   date: string;
   type: string;
   photo: string;
+  id?: string;
 };

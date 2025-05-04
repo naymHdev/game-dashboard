@@ -4,17 +4,41 @@ import userProfile from "@/assets/image/userImage.png";
 import { Button, message, Popconfirm, PopconfirmProps } from "antd";
 import { useState } from "react";
 import UserModal from "./UserModal";
+import { IUser } from "@/types";
+import { updateUserRequest } from "@/services/users";
+import { toast } from "sonner";
 
-type TProps = {
-  name: string;
-  type: string;
-};
-
-const UserRequestCard = ({ data }: { data: TProps }) => {
+const UserRequestCard = ({ data }: { data: IUser }) => {
+  console.log(data);
   const [open, setOpen] = useState(false);
+
+  // ---------- Delete User ---------- \\
   const confirm: PopconfirmProps["onConfirm"] = (e) => {
-    message.success("Successfully blocked this user");
+    message.success("Successfully deleted this user");
   };
+
+  // ---------- Accept User ---------- \\
+  const handleAcceptRequest = async (id: string) => {
+    // console.log(id);
+    const userId = {
+      data: {
+        updateId: id,
+      },
+    };
+    try {
+      const res = await updateUserRequest(userId);
+      // console.log(res);
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Internal server error");
+    }
+  };
+
   return (
     <div className="bg-main-color-bg p-4 flex gap-x-3  text-text-color rounded-md">
       <Image
@@ -31,11 +55,14 @@ const UserRequestCard = ({ data }: { data: TProps }) => {
           {data?.name}
         </h3>
         <p>
-          Account Type: <span className="font-medium">{data?.type}</span>
+          Account Type: <span className="font-medium">{data?.status}</span>
         </p>
 
         <div className="flex gap-x-5">
-          <Button className="bg-main-colo !border-none  !rounded-none !rounded-tl-xl  !rounded-br-xl !px-5">
+          <Button
+            onClick={() => handleAcceptRequest(data?._id as string)}
+            className="bg-main-colo !border-none  !rounded-none !rounded-tl-xl  !rounded-br-xl !px-5"
+          >
             Accept
           </Button>
 

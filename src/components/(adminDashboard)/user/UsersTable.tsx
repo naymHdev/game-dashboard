@@ -2,13 +2,13 @@
 
 import { Image, Input, message, Popconfirm, TableProps, Tag } from "antd";
 import { useState } from "react";
-import { CgUnblock } from "react-icons/cg";
-import { ArrowDownWideNarrowIcon, Eye, Search } from "lucide-react";
+import { ArrowDownWideNarrowIcon, Eye, Search, Trash2 } from "lucide-react";
 import moment from "moment";
 import UserDetails from "./UserDetails";
 import DataTable from "@/utils/DataTable";
 import { IUser } from "@/types";
 import { TDataType } from "@/types/userTable";
+import { deleteUser } from "@/services/users";
 
 const UsersTable = ({
   usersData,
@@ -18,10 +18,26 @@ const UsersTable = ({
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [open, setOpen] = useState(false);
 
-  const confirmBlock = () => {
-    message.success("Blocked the user");
-  };
+  const confirmBlock = async (id: string) => {
+    console.log(id);
+    try {
+      const deleteInfo = {
+        data: {
+          userId: id,
+        },
+      };
+      const res = await deleteUser(deleteInfo);
+      // console.log("res", res);
 
+      if (res?.success) {
+        message.success("User deleted successfully");
+      } else {
+        message.error(res?.message || "Failed to delete user");
+      }
+    } catch (error) {
+      message.error("Something went wrong!");
+    }
+  };
   const columns: TableProps<TDataType>["columns"] = [
     {
       title: "#SL",
@@ -83,13 +99,13 @@ const UsersTable = ({
             }}
           />
           <Popconfirm
-            title="Block the user"
-            description="Are you sure to block this user?"
-            onConfirm={confirmBlock}
+            title="Delete the user"
+            description="Are you sure to delete this user?"
+            onConfirm={() => confirmBlock(record?.id as string)}
             okText="Yes"
             cancelText="No"
           >
-            <CgUnblock size={22} color="#CD0335" className="cursor-pointer" />
+            <Trash2 size={22} color="#CD0335" className="cursor-pointer" />
           </Popconfirm>
         </div>
       ),
@@ -99,7 +115,9 @@ const UsersTable = ({
   return (
     <div className="bg-section-bg rounded-md">
       <div className="flex justify-between items-center px-10 py-5">
-        <h1 className="text-2xl text-text-color">All Users</h1>
+        <h1 className="text-2xl text-text-color">
+          All Users ({usersData?.meta?.total})
+        </h1>
         <Input
           className="!w-[250px] lg:!w-[350px] !py-2 !bg-white placeholder:text-gray-500"
           placeholder="Search Users..."

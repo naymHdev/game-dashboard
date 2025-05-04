@@ -1,6 +1,5 @@
 "use client";
 import {
-  Image,
   Input,
   message,
   Popconfirm,
@@ -27,11 +26,11 @@ type TDataType = {
 
 const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
   console.log(e);
-  message.success("Blocked the user");
+  message.success("Deleted the game");
 };
 
 const AllGamesTable = ({ gamesArray }: { gamesArray: any }) => {
-  console.log(gamesArray);
+  // console.log(gamesArray);
   const [open, setOpen] = useState(false);
   const [isGameDetails, setIsGameDetails] = useState(null);
 

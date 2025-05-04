@@ -13,6 +13,7 @@ export type FieldType = {
 
 export interface IUser {
   id?: string;
+  _id?: string | undefined;
   name?: string;
   email: string;
   password: string;
@@ -23,4 +24,5 @@ export interface IUser {
   approvedUpdate: boolean;
   uploadedGame?: string[];
   isDeleted?: boolean;
+  status?: "pending" | "approved";
 }
