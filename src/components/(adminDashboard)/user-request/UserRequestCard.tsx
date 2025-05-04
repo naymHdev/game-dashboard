@@ -2,20 +2,15 @@
 import Image from "next/image";
 import userProfile from "@/assets/image/userImage.png";
 import { Button, message, Popconfirm, PopconfirmProps } from "antd";
-import { useState } from "react";
+import React, { useState } from "react";
 import UserModal from "./UserModal";
 import { IUser } from "@/types";
-import { updateUserRequest } from "@/services/users";
+import { deleteUser, updateUserRequest } from "@/services/users";
 import { toast } from "sonner";
 
 const UserRequestCard = ({ data }: { data: IUser }) => {
-  console.log(data);
+  // console.log(data);
   const [open, setOpen] = useState(false);
-
-  // ---------- Delete User ---------- \\
-  const confirm: PopconfirmProps["onConfirm"] = (e) => {
-    message.success("Successfully deleted this user");
-  };
 
   // ---------- Accept User ---------- \\
   const handleAcceptRequest = async (id: string) => {
@@ -36,6 +31,29 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
     } catch (error) {
       console.log(error);
       toast.error("Internal server error");
+    }
+  };
+
+  // ---------- Delete User ---------- \\
+  const handleDelete = async (id: string) => {
+    console.log(id);
+    const deleteInfo = {
+      data: {
+        userId: id,
+      },
+    };
+
+    try {
+      const res = await deleteUser(deleteInfo);
+      console.log("res", res);
+
+      if (res?.success) {
+        message.success("User deleted successfully");
+      } else {
+        message.error(res?.message || "Failed to delete user");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -69,7 +87,7 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
           <Popconfirm
             title="Delete Request"
             description="Are you sure to delete this request?"
-            onConfirm={confirm}
+            onConfirm={() => handleDelete(data?._id as string)}
             okText="Yes"
             cancelText="No"
           >

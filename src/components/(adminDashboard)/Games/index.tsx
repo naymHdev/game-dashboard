@@ -107,7 +107,7 @@ const AllGamesTable = ({ gamesArray }: { gamesArray: any }) => {
       </div>
       <DataTable
         columns={columns}
-        data={gamesArray.data.allGames}
+        data={gamesArray?.data?.allGames}
         pageSize={10}
       ></DataTable>
       <GameDetails open={open} setOpen={setOpen} details={isGameDetails} />

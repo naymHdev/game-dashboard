@@ -20,7 +20,6 @@ interface DataTableProps<T> {
 const DataTable = <T extends { id?: string }>({
   columns,
   data,
-  pageSize,
   usersData,
 }: DataTableProps<T>) => {
   const dataSource = usersData?.allUsers || data || [];
