@@ -19,8 +19,15 @@ const LoginForm = () => {
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     // console.log("Success:", values);
 
+    const authInfo = {
+      data: {
+        email: values?.email,
+        password: values?.password,
+      },
+    };
+
     try {
-      const res = await adminSignIn(values);
+      const res = await adminSignIn(authInfo);
       // console.log(res);
       if (res.success) {
         toast.success("Successfully Login", {

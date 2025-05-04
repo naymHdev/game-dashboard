@@ -4,9 +4,11 @@ export type TInstrumentsData = {
 };
 
 export type FieldType = {
-  email?: string;
-  password?: string;
-  remember?: string;
+  data: {
+    email?: string;
+    password?: string;
+    remember?: string;
+  };
 };
 
 export interface IUser {
