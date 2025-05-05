@@ -11,7 +11,7 @@ const DashboardPage = async () => {
     <div className="lg:space-y-10 space-y-5 ">
       <Statistic StatisticData={StatisticData.data} />
       <UserOverviewChart userStatistics={StatisticData.data} />
-      <LatestUser />
+      <LatestUser usersData={StatisticData.data} />
     </div>
   );
 };
