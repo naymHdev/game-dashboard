@@ -6,6 +6,7 @@ import {
   PopconfirmProps,
   TableProps,
   Tag,
+  Tooltip,
 } from "antd";
 import { useState } from "react";
 import DataTable from "@/utils/DataTable";
@@ -30,22 +31,24 @@ const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
 };
 
 const AllGamesTable = ({ gamesArray }: { gamesArray: any }) => {
-  // console.log(gamesArray);
+  console.log(gamesArray?.data?.allGames[1]);
   const [open, setOpen] = useState(false);
   const [isGameDetails, setIsGameDetails] = useState(null);
 
   const columns: TableProps<TDataType>["columns"] = [
     {
       title: "#SL",
-      dataIndex: "serial",
+      key: "serial",
+      render: (_: any, __: any, index: number) => index + 1,
     },
     {
       title: "Game Name",
-      dataIndex: "game_title",
+      dataIndex: "title",
     },
     {
       title: "Publisher Email",
-      dataIndex: "publisherEmail",
+      key: "publisherEmail",
+      render: (_: any, record: any) => record?.userId?.email || "N/A",
     },
     {
       title: "Game Platforms",
@@ -67,6 +70,34 @@ const AllGamesTable = ({ gamesArray }: { gamesArray: any }) => {
     {
       title: "Game Price",
       dataIndex: "price",
+    },
+    {
+      title: "Status",
+      key: "gameStatus",
+      render: (_: any, record: any) => {
+        const status = record?.gameStatus;
+        const upcomingDate = record?.upcomingDate;
+
+        if (status === "upcoming") {
+          return (
+            <Tooltip
+              title={`Releases on: ${moment(upcomingDate).format(
+                "MMMM D, YYYY"
+              )}`}
+            >
+              <Tag color="orange" style={{ cursor: "pointer" }}>
+                Upcoming
+              </Tag>
+            </Tooltip>
+          );
+        }
+
+        if (status === "active") {
+          return <Tag color="green">Active</Tag>;
+        }
+
+        return <Tag color="default">{status}</Tag>;
+      },
     },
     {
       title: "Action",
