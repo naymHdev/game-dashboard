@@ -16,7 +16,7 @@ type TDataType = {
 };
 
 const LatestUser = ({ usersData }: { usersData: any }) => {
-  console.log(" usersData", usersData?.allUsers);
+  // console.log(" usersData", usersData?.allUsers);
   const [open, setOpen] = useState(false);
 
   const columns: TableProps<TDataType>["columns"] = [

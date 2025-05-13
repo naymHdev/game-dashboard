@@ -1,17 +1,20 @@
 "use client";
 import { Button, Menu, MenuProps } from "antd";
 import Sider from "antd/es/layout/Sider";
-import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/logo.png";
 import { navLinks } from "@/utils/navLinks";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { IoLogInOutline } from "react-icons/io5";
+import { useUser } from "@/contexts/UserContext";
+import { logout } from "@/services/auth";
 
 const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
   const [current, setCurrent] = useState("dashboard");
   const currentPath = usePathname();
+
+  const { user } = useUser();
+  // console.log("user", user);
 
   const onClick: MenuProps["onClick"] = (e) => {
     setCurrent(e.key);
@@ -31,6 +34,11 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
       setCurrent("dashboard");
     }
   }, []);
+
+  const handleLogOut = async () => {
+    await logout();
+    window.location.reload();
+  };
 
   return (
     <Sider
@@ -68,20 +76,47 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
       />
       <div className="absolute  w-[90%]  bottom-5 flex justify-center items-center px-2">
         {!collapsed ? (
-          <Link href={"/login"} className="w-full">
-            <Button
-              icon={<IoLogInOutline size={22} />}
-              className=" w-full !bg-black !border-main-color flex items-center justify-center font-600 text-18  border border-white text-white !py-5"
-            >
-              Log Out
-            </Button>
-          </Link>
+          <>
+            {user?.role === "ADMIN" ? (
+              <Button
+                onClick={handleLogOut}
+                icon={<IoLogInOutline size={22} />}
+                className=" w-full !bg-black !border-main-color flex items-center justify-center font-600 text-18  border border-white text-white !py-5"
+              >
+                Log Out
+              </Button>
+            ) : (
+              <Link href={"/login"} className="w-full">
+                <Button
+                  icon={<IoLogInOutline size={22} />}
+                  className=" w-full !bg-black !border-main-color flex items-center justify-center font-600 text-18  border border-white text-white !py-5"
+                >
+                  Log In
+                </Button>
+              </Link>
+            )}
+          </>
         ) : (
-          <Link href={"/login"}>
-            <div className=" px-3 py-2 bg-main-color rounded">
-              <IoLogInOutline color="#fff" size={24} />
-            </div>
-          </Link>
+          <>
+            {user?.role === "ADMIN" ? (
+              <>
+                <div
+                  onClick={handleLogOut}
+                  className=" px-3 py-2 bg-main-color rounded"
+                >
+                  <IoLogInOutline color="#fff" size={24} />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link href={"/login"}>
+                  <div className=" px-3 py-2 bg-main-color rounded">
+                    <IoLogInOutline color="#fff" size={24} />
+                  </div>
+                </Link>
+              </>
+            )}
+          </>
         )}
       </div>
     </Sider>

@@ -5,6 +5,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import avatarImg from "@/assets/image/profile.png";
 
 import Link from "next/link";
+import { useUser } from "@/contexts/UserContext";
 
 type TNavbarProps = {
   collapsed: boolean;
@@ -12,6 +13,8 @@ type TNavbarProps = {
 };
 
 const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
+  const { user } = useUser();
+
   return (
     <div className="flex items-center justify-between w-[97%] font-poppins">
       {/* Header left side */}
@@ -25,7 +28,9 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
         <div className="flex flex-col ">
           <h2 className="md:text-2xl text-lg  font-medium">
             Welcome, Avinash
-            <span className="block  text-sm font-normal">Have a great day!</span>
+            <span className="block  text-sm font-normal">
+              Have a great day!
+            </span>
           </h2>
         </div>
       </Flex>
@@ -52,13 +57,15 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
           </div>
         </Link>
 
-        <Link href={"/personal-information"} className="flex items-center">
-          <Avatar
-            src={avatarImg.src}
-            size={48}
-            className="border border-main-color size-12"
-          ></Avatar>
-        </Link>
+        {user && user.role === "ADMIN" && (
+          <Link href={"#"} className="flex items-center">
+            <Avatar
+              src={avatarImg.src}
+              size={48}
+              className="border border-main-color size-12"
+            ></Avatar>
+          </Link>
+        )}
       </Flex>
     </div>
   );
