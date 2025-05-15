@@ -31,7 +31,7 @@ const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
 };
 
 const AllGamesTable = ({ gamesArray }: { gamesArray: any }) => {
-  console.log(gamesArray?.data?.allGames[1]);
+  // console.log(gamesArray);
   const [open, setOpen] = useState(false);
   const [isGameDetails, setIsGameDetails] = useState(null);
 
@@ -130,11 +130,6 @@ const AllGamesTable = ({ gamesArray }: { gamesArray: any }) => {
     <div className="bg-section-bg rounded-md">
       <div className="flex justify-between items-center px-10 py-5">
         <h1 className="  text-2xl text-text-color">All Games</h1>
-        <Input
-          className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
-          placeholder="Search Users..."
-          prefix={<Search size={20} color="#000"></Search>}
-        ></Input>
       </div>
       <DataTable
         columns={columns}

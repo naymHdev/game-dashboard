@@ -18,7 +18,7 @@ export const adminSignIn = async (userData: FieldType) => {
 
     const result = await res.json();
     if (result.success) {
-      cookies().set("accessToken", result.data.accessToken, {
+      cookies().set("accessToken", result.data.data.accessToken, {
         httpOnly: true,
         maxAge: 60 * 60 * 24 * 7,
       });
@@ -49,7 +49,7 @@ export const logout = async () => {
 export const allUser = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/find_all_users`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/find_all_users`,
       {
         method: "GET",
         headers: {

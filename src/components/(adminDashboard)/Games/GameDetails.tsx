@@ -49,9 +49,6 @@ const GameDetails = ({ open, setOpen, details }: TPropsType) => {
             <strong>Title:</strong> {title}
           </div>
           <div>
-            <strong>Sub Title:</strong> {subTitle}
-          </div>
-          <div>
             <strong>Description:</strong> {description}
           </div>
           <div>

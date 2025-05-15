@@ -43,7 +43,7 @@ const UserOverviewChart = ({ userStatistics }: { userStatistics: any }) => {
     <div className="bg-secondary-color  rounded-lg p-8 ">
       <div className="text-text-color flex lg:flex-wrap xl:flex-nowrap justify-between items-center mb-10 gap-2">
         <h1 className="text-xl">User Overview</h1>
-        <h1 className="">
+        {/* <h1 className="">
           Account Type:
           <Select
             value={selectedUserType}
@@ -57,9 +57,9 @@ const UserOverviewChart = ({ userStatistics }: { userStatistics: any }) => {
               { value: "publisher", label: "Publisher" },
             ]}
           />
-        </h1>
+        </h1> */}
 
-        <Select
+        {/* <Select
           value={selectedYear}
           style={{ width: 120 }}
           onChange={handleChange}
@@ -71,7 +71,7 @@ const UserOverviewChart = ({ userStatistics }: { userStatistics: any }) => {
             { value: "2029", label: "2029" },
             { value: "2030", label: "2030" },
           ]}
-        />
+        /> */}
       </div>
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart

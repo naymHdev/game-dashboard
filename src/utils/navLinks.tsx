@@ -31,7 +31,7 @@ export const navLinks = [
   {
     key: "user-request",
     icon: <PiListPlusFill size={20} />,
-    label: <Link href={"/user-request"}>User Request</Link>,
+    label: <Link href={"/user-request"}>Profile Update Request</Link>,
   },
 
   {

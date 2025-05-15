@@ -29,7 +29,6 @@ const DataTable = <T extends { id?: string }>({
         current: usersData.meta.page,
         pageSize: usersData.meta.limit,
         total: usersData.meta.total,
-        showTotal: (total) => `Total ${total} items`,
         onChange: (page, pageSize) => {
           console.log("Page changed to", page, "with pageSize", pageSize);
         },

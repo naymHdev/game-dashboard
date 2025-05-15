@@ -2,11 +2,11 @@
 
 import { cookies } from "next/headers";
 
-export const getAllGames = async () => {
+export const getAllGames = async (page:number) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/admin/getAllGame`,
+      `https://gaming-showcase-backend.onrender.com/api/v1/admin/getAllGame?page=${page}`,
       {
         method: "GET",
         headers: {
