@@ -1,11 +1,10 @@
-import { RiDashboardHorizontalFill } from "react-icons/ri";
-import { GoPeople } from "react-icons/go";
+import { RiDashboardHorizontalFill, RiBloggerLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
-import { CgGames } from "react-icons/cg";
-import { RiLogoutCircleLine } from "react-icons/ri";
-import Link from "next/link";
 import { PiListPlusFill } from "react-icons/pi";
 import { FilePenLine } from "lucide-react";
+import { GoPeople } from "react-icons/go";
+import { CgGames } from "react-icons/cg";
+import Link from "next/link";
 
 export const navLinks = [
   {
@@ -27,6 +26,11 @@ export const navLinks = [
     key: "users",
     icon: <GoPeople size={18} />,
     label: <Link href={"/user"}>Accounts</Link>,
+  },
+  {
+    key: "blogs",
+    icon: <RiBloggerLine size={18} />,
+    label: <Link href={"/blogs"}>Blogs</Link>,
   },
   {
     key: "user-request",

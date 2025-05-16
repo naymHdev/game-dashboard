@@ -1,4 +1,3 @@
-import AllGamesTable from "@/components/(adminDashboard)/Games";
 import GameTable from "@/components/(adminDashboard)/Games/GameTable";
 import { getAllGames } from "@/services/games";
 

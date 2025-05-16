@@ -17,8 +17,9 @@ export const adminSignIn = async (userData: FieldType) => {
     );
 
     const result = await res.json();
+    // console.log(result);
     if (result.success) {
-      cookies().set("accessToken", result.data.data.accessToken, {
+      cookies().set("accessToken", result.data.accessToken, {
         httpOnly: true,
         maxAge: 60 * 60 * 24 * 7,
       });
