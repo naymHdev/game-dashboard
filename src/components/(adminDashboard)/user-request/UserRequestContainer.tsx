@@ -25,7 +25,7 @@ const UserRequestContainer = ({ userData }: { userData: any }) => {
         <h1 className="text-2xl font-bold w-full text-primary-white">
           User Requests ({userData?.data?.length})
         </h1>
-        <div className="flex gap-x-2 justify-center items-center">
+        {/* <div className="flex gap-x-2 justify-center items-center">
           <Input
             type="search"
             size="large"
@@ -43,7 +43,7 @@ const UserRequestContainer = ({ userData }: { userData: any }) => {
               <ArrowDownWideNarrowIcon size={16} /> Filter
             </Button>
           </Dropdown>
-        </div>
+        </div> */}
       </div>
       {/* show request users data */}
       <div className="mt-10 grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-4">

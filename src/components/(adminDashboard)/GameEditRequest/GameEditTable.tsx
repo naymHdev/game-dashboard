@@ -106,11 +106,11 @@ const GameEditTable = () => {
     <div className="bg-section-bg rounded-md">
       <div className="flex justify-between items-center px-10 py-5">
         <h1 className="  text-2xl text-text-color">Game Edit Requests</h1>
-        <Input
+        {/* <Input
           className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
           placeholder="Search Users..."
           prefix={<Search size={20} color="#000"></Search>}
-        ></Input>
+        ></Input> */}
       </div>
       <DataTable columns={columns} data={data} pageSize={10}></DataTable>
       <EditDetails open={open} setOpen={setOpen} />
