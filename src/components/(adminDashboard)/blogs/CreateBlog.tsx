@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { BlogFormInputs } from "@/types/blogs";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { createBlog } from "@/services/blog";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import Image from "next/image";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const CreateBlog = () => {
   const [imageFiles, setImageFiles] = useState<File | undefined>(undefined);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const router = useRouter();
 
   // Function to handle file upload
   const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,22 +38,32 @@ const CreateBlog = () => {
   } = useForm<BlogFormInputs>();
 
   // Submit Handler
-  const onSubmit = async (data: BlogFormInputs) => {
-    console.log("Submitted Blog:", data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const blogData = {
+      author: data.author,
+      title: data.title,
+      description: data.description,
+    };
+    // console.log("Submitted Blog:", blogData);
 
     // Create a FormData object
     const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
-    formData.append("blogImage", imageFiles!);
+    formData.append("data", JSON.stringify(blogData)); // must be JSON string
+    formData.append("blogImage", imageFiles as File);
 
     try {
       const res = await createBlog(formData);
-      console.log(res);
+      // console.log(res);
+      if (res.success) {
+        toast.success(res.message);
+        reset();
+        router.push("/blogs");
+      } else {
+        toast.error(res.message);
+      }
     } catch (error: any) {
       console.log(error, "error ");
     }
-
-    reset();
   };
 
   return (

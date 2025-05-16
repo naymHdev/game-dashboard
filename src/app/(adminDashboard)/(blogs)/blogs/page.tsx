@@ -25,7 +25,7 @@ const BlogsPage = async ({ searchParams }) => {
           </div>
         </div>
         <div className="mt-10">
-          <AllBlogs blogs={blogs} />
+          <AllBlogs searchParams={page} blogs={blogs} />
         </div>
       </div>
     </>

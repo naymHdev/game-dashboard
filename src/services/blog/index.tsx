@@ -34,10 +34,7 @@ export const createBlog = async (blogData: FormData) => {
       `https://gaming-showcase-backend.onrender.com/api/v1/blog/create-blog`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(blogData),
+        body: blogData,
         cache: "no-store",
       }
     );
