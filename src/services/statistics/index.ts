@@ -2,10 +2,9 @@
 
 import { cookies } from "next/headers";
 
-const token = cookies().get("accessToken")?.value;
-
 export const dashBoardStatics = async () => {
   try {
+    const token = cookies().get("accessToken")?.value;
     const res = await fetch(
       `https://gaming-showcase-backend.onrender.com/api/v1/admin/dashboard`,
       {
@@ -22,6 +21,6 @@ export const dashBoardStatics = async () => {
     );
     return await res.json();
   } catch (error: any) {
-    return Error(error);  
+    return Error(error);
   }
 };

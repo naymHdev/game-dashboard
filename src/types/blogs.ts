@@ -8,8 +8,16 @@ export interface TBlogs {
   isDeleted: boolean;
 }
 
+export type Reward = {
+  code: string;
+  reward: string;
+  validity: string;
+};
+
 export type BlogFormInputs = {
   author: string;
   title: string;
   description: string;
+  altTag: string;
+  rewards: Reward[];
 };

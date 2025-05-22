@@ -1,10 +1,14 @@
 import GameEditTable from "@/components/(adminDashboard)/GameEditRequest/GameEditTable";
+import { getGameEditRequest } from "@/services/games";
 
-const GameEditRequest = () => {
+const GameEditRequest = async () => {
+  const { data: gameEditData } = await getGameEditRequest();
+  // console.log("gameEditData", gameEditData);
+
   return (
     <>
       <div>
-        <GameEditTable />
+        <GameEditTable gameEditData={gameEditData} />
       </div>
     </>
   );

@@ -32,6 +32,8 @@ const GameTable = ({
   const [open, setOpen] = useState(false);
   const [isGameDetails, setIsGameDetails] = useState(null);
 
+    console.log(gamesArray);
+
   const dataSource: TGameTable[] = gamesArray?.data?.allGames?.map(
     (game: any, index: number) => ({
       ...game,

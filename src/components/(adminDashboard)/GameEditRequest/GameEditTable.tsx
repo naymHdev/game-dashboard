@@ -1,101 +1,133 @@
 "use client";
+
 import {
   Image,
-  Input,
   message,
   Popconfirm,
   PopconfirmProps,
   TableProps,
+  Tag,
 } from "antd";
 import { useState } from "react";
 import DataTable from "@/utils/DataTable";
-import { Eye, Search, Trash } from "lucide-react";
+import { Eye, Trash } from "lucide-react";
 import EditDetails from "./EditDetails";
-
-type TDataType = {
-  key?: number;
-  serial: number;
-  name: string;
-  publisherEmail: string;
-  phone: string;
-  date: string;
-  price: string;
-  gamePlatform: string[];
-};
-const data: TDataType[] = Array.from({ length: 18 }).map((data, inx) => ({
-  key: inx,
-  serial: inx + 1,
-  name: "James Tracy",
-  publisherEmail: "james1234@gmail.comm",
-  phone: "12345678",
-  date: "11 Oct, 2024",
-  price: "$9.80",
-  gamePlatform: ["Ios", "Android"],
-}));
+import { TGameSubmission } from "@/types/games";
 
 const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
   console.log(e);
-  message.success("Blocked the user");
+  message.success("Denied the edit request");
 };
 
-const GameEditTable = () => {
+const GameEditTable = ({
+  gameEditData,
+}: {
+  gameEditData: TGameSubmission[];
+}) => {
+  console.log("gameEditData", gameEditData);
+
   const [open, setOpen] = useState(false);
 
-  const columns: TableProps<TDataType>["columns"] = [
+  // Map real data to table data keys expected in columns
+  const data = gameEditData.map((game, index) => ({
+    key: game.id,
+    serial: index + 1,
+    title: game.title,
+    publisherEmail:
+      typeof game.userId === "object" && game.userId !== null
+        ? (game.userId.email as string)
+        : "N/A",
+    platform: game.platform,
+    date: new Date(game.submittedAt).toLocaleDateString(),
+    price: `$${game.price.toFixed(2)}`,
+  }));
+
+  const columns: TableProps<(typeof data)[0]>["columns"] = [
     {
       title: "#SL",
       dataIndex: "serial",
+      width: 60,
     },
     {
       title: "Game Name",
-      dataIndex: "name",
-      render: (text, record) => (
-        <div className="flex items-center gap-x-1">
+      dataIndex: "title",
+      render: (text) => (
+        <div className="flex items-center gap-x-2">
           <Image
             src={"/user-profile.png"}
             alt="profile-picture"
             width={40}
             height={40}
-            className="size-10"
-          ></Image>
-          <p>{text}</p>
+            preview={false}
+          />
+          <span>{text}</span>
         </div>
       ),
+      ellipsis: true,
     },
     {
       title: "Publisher Email",
       dataIndex: "publisherEmail",
+      ellipsis: {
+        showTitle: false,
+      },
+      render: (email: string) => (
+        <span title={email} className="block max-w-[200px] truncate">
+          {email || "N/A"}
+        </span>
+      ),
     },
     {
       title: "Game Platforms",
-      dataIndex: "gamePlatform",
+      dataIndex: "platform",
+      render: (platforms: string[]) => (
+        <>
+          {platforms.map((platform) => (
+            <Tag key={platform} color="blue" style={{ marginBottom: 4 }}>
+              {platform}
+            </Tag>
+          ))}
+        </>
+      ),
+      ellipsis: true,
     },
     {
       title: "Request Date",
       dataIndex: "date",
+      width: 120,
+      responsive: ["md"],
     },
     {
       title: "Game Price",
       dataIndex: "price",
+      width: 100,
+      responsive: ["md"],
     },
     {
       title: "Action",
-      dataIndex: "action",
-      render: () => (
-        <div className="flex gap-2 ">
+      key: "action",
+      width: 120,
+      render: (_, record) => (
+        <div className="flex gap-3 items-center justify-center">
           <Eye
             size={22}
             color="var(--color-text-color)"
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen(true)}
+            className="cursor-pointer"
+            title="View Details"
           />
           <Popconfirm
-            title="Denied the request!"
-            description="Are you sure to denied the edit request?"
+            title="Deny the edit request?"
             onConfirm={confirmBlock}
             okText="Yes"
             cancelText="No"
           >
-            <Trash size={22} color="#CD0335" />
+            <Trash
+              size={22}
+              color="#CD0335"
+              className="cursor-pointer"
+              title="Deny Request"
+            />
           </Popconfirm>
         </div>
       ),
@@ -105,14 +137,9 @@ const GameEditTable = () => {
   return (
     <div className="bg-section-bg rounded-md">
       <div className="flex justify-between items-center px-10 py-5">
-        <h1 className="  text-2xl text-text-color">Game Edit Requests</h1>
-        {/* <Input
-          className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
-          placeholder="Search Users..."
-          prefix={<Search size={20} color="#000"></Search>}
-        ></Input> */}
+        <h1 className="text-2xl text-text-color">Game Edit Requests</h1>
       </div>
-      <DataTable columns={columns} data={data} pageSize={10}></DataTable>
+      <DataTable columns={columns} data={data} pageSize={10} />
       <EditDetails open={open} setOpen={setOpen} />
     </div>
   );
