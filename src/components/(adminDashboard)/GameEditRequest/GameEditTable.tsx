@@ -24,41 +24,29 @@ const GameEditTable = ({
 }: {
   gameEditData: TGameSubmission[];
 }) => {
-  console.log("gameEditData", gameEditData);
-
   const [open, setOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<TGameSubmission | null>(null);
 
-  // Map real data to table data keys expected in columns
-  const data = gameEditData.map((game, index) => ({
-    key: game.id,
-    serial: index + 1,
-    title: game.title,
-    publisherEmail:
-      typeof game.userId === "object" && game.userId !== null
-        ? (game.userId.email as string)
-        : "N/A",
-    platform: game.platform,
-    date: new Date(game.submittedAt).toLocaleDateString(),
-    price: `$${game.price.toFixed(2)}`,
-  }));
-
-  const columns: TableProps<(typeof data)[0]>["columns"] = [
+  const columns: TableProps<TGameSubmission>["columns"] = [
     {
       title: "#SL",
-      dataIndex: "serial",
+      dataIndex: "id",
+      key: "serial",
       width: 60,
+      render: (_, __, index) => index + 1,
     },
     {
       title: "Game Name",
       dataIndex: "title",
-      render: (text) => (
+      render: (text, record) => (
         <div className="flex items-center gap-x-2">
           <Image
-            src={"/user-profile.png"}
-            alt="profile-picture"
+            src={record.image[0] || "/user-profile.png"}
+            alt={record.title}
             width={40}
             height={40}
             preview={false}
+            className="rounded-md object-cover"
           />
           <span>{text}</span>
         </div>
@@ -67,11 +55,9 @@ const GameEditTable = ({
     },
     {
       title: "Publisher Email",
-      dataIndex: "publisherEmail",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (email: string) => (
+      dataIndex: ["userId", "email"],
+      ellipsis: { showTitle: false },
+      render: (email) => (
         <span title={email} className="block max-w-[200px] truncate">
           {email || "N/A"}
         </span>
@@ -93,15 +79,22 @@ const GameEditTable = ({
     },
     {
       title: "Request Date",
-      dataIndex: "date",
+      dataIndex: "submittedAt",
       width: 120,
       responsive: ["md"],
+      render: (date: string) =>
+        new Date(date).toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        }),
     },
     {
       title: "Game Price",
       dataIndex: "price",
       width: 100,
       responsive: ["md"],
+      render: (price: number) => `$${price.toFixed(2)}`,
     },
     {
       title: "Action",
@@ -112,7 +105,10 @@ const GameEditTable = ({
           <Eye
             size={22}
             color="var(--color-text-color)"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              setSelectedGame(record);
+              setOpen(true);
+            }}
             className="cursor-pointer"
             title="View Details"
           />
@@ -139,8 +135,8 @@ const GameEditTable = ({
       <div className="flex justify-between items-center px-10 py-5">
         <h1 className="text-2xl text-text-color">Game Edit Requests</h1>
       </div>
-      <DataTable columns={columns} data={data} pageSize={10} />
-      <EditDetails open={open} setOpen={setOpen} />
+      <DataTable columns={columns} data={gameEditData} pageSize={10} />
+      <EditDetails open={open} setOpen={setOpen} details={selectedGame} />
     </div>
   );
 };

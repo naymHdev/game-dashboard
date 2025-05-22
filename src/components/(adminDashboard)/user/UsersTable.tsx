@@ -120,11 +120,6 @@ const UsersTable = ({
         <h1 className="text-2xl text-text-color">
           All Users ({usersData?.meta?.total})
         </h1>
-        {/* <Input
-          className="!w-[250px] lg:!w-[350px] !py-2 !bg-white placeholder:text-gray-500"
-          placeholder="Search Users..."
-          prefix={<Search size={20} color="#000" />}
-        /> */}
       </div>
       <DataTable columns={columns} usersData={usersData} pageSize={10} />
       <UserDetails open={open} setOpen={setOpen} user={selectedUser} />
