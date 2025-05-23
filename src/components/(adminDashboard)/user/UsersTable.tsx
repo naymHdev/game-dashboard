@@ -21,7 +21,7 @@ const UsersTable = ({
   // console.log("usersData", usersData);
 
   const confirmBlock = async (id: string) => {
-    console.log(id);
+    // console.log(id);
     try {
       const deleteInfo = {
         data: {

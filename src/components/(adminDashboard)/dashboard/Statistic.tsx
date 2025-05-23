@@ -1,31 +1,10 @@
 "use client";
 
-import { ConfigProvider, Select } from "antd";
-import { useState } from "react";
-
-const monthsData = [
-  { value: "jan", label: "Jan" },
-  { value: "feb", label: "Feb" },
-  { value: "mar", label: "Mar" },
-  { value: "apr", label: "Apr" },
-  { value: "may", label: "May" },
-  { value: "jun", label: "Jun" },
-  { value: "jul", label: "Jul" },
-  { value: "aug", label: "Aug" },
-  { value: "sep", label: "Sep" },
-  { value: "oct", label: "Oct" },
-  { value: "nov", label: "Nov" },
-  { value: "dec", label: "Dec" },
-];
+import { ConfigProvider } from "antd";
 
 const Statistic = ({ StatisticData }: { StatisticData: any }) => {
   // console.log("StatisticData", StatisticData);
   const { totalUsers, totalUpcomingGames, totalGames } = StatisticData || {};
-  const [selectedMonth, setSelectedMonth] = useState("Apr");
-
-  const handleMonthChange = (value: string) => {
-    setSelectedMonth(value);
-  };
   return (
     <div className="flex justify-between items-center xl:gap-3 gap-2 flex-wrap text-text-color ">
       {/* ====================================== Total User ========================================== */}
@@ -44,18 +23,7 @@ const Statistic = ({ StatisticData }: { StatisticData: any }) => {
                   },
                 },
               }}
-            >
-              {/* <Select
-                value={selectedMonth}
-                style={{
-                  width: 80,
-                  border: "none",
-                }}
-                onChange={handleMonthChange}
-                options={monthsData}
-                className="!border-none month-select rounded-full"
-              /> */}
-            </ConfigProvider>
+            ></ConfigProvider>
           </h1>
         </div>
         <p className="xl:text-3xl text-2xl font-medium ">{totalUsers}</p>
@@ -77,18 +45,7 @@ const Statistic = ({ StatisticData }: { StatisticData: any }) => {
                   },
                 },
               }}
-            >
-              {/* <Select
-                value={selectedMonth}
-                style={{
-                  width: 80,
-                  border: "none",
-                }}
-                onChange={handleMonthChange}
-                options={monthsData}
-                className="!border-none month-select rounded-full"
-              /> */}
-            </ConfigProvider>
+            ></ConfigProvider>
           </h1>
         </div>
         <p className="xl:text-3xl text-2xl font-medium ">
@@ -112,18 +69,7 @@ const Statistic = ({ StatisticData }: { StatisticData: any }) => {
                   },
                 },
               }}
-            >
-              {/* <Select
-                value={selectedMonth}
-                style={{
-                  width: 80,
-                  border: "none",
-                }}
-                onChange={handleMonthChange}
-                options={monthsData}
-                className="!border-none month-select rounded-full"
-              /> */}
-            </ConfigProvider>
+            ></ConfigProvider>
           </h1>
         </div>
         <p className="xl:text-3xl text-2xl font-medium ">{totalGames}</p>

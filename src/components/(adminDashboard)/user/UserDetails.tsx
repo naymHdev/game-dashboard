@@ -1,6 +1,6 @@
 import { IUser } from "@/types";
 import { Modal } from "antd";
-import { RiCloseLargeLine } from "react-icons/ri";
+import { RiCloseLine } from "react-icons/ri";
 
 type TPropsType = {
   open: boolean;
@@ -9,53 +9,91 @@ type TPropsType = {
 };
 
 const UserDetails = ({ open, setOpen, user }: TPropsType) => {
-  // console.log(user);
+  if (!user) return null;
+
   return (
     <Modal
       open={open}
       footer={null}
-      centered={true}
+      centered
       onCancel={() => setOpen(false)}
       closeIcon={false}
-      style={{
-        minWidth: "max-content",
-        position: "relative",
-        backgroundColor: "#000",
-      }}
+      width={400}
+      className="text-white"
     >
-      <div className="pb-20 ">
-        <div className="flex justify-between items-center">
-          <h4 className="text-center text-xl font-medium">User Details</h4>
-          <div
-            className="w-10 h-10 bg-main-color  rounded-full flex justify-center items-center cursor-pointer"
-            onClick={() => setOpen(false)}
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-semibold">User Details</h3>
+        <button
+          onClick={() => setOpen(false)}
+          aria-label="Close modal"
+          className="p-2 rounded-full bg-main-color hover:bg-red-600 transition"
+        >
+          <RiCloseLine size={20} />
+        </button>
+      </div>
+
+      {/* Profile Photo */}
+      <div className="flex justify-center mb-6">
+        <img
+          src={user.photo || "/default-profile.png"}
+          alt={user.name || "User profile"}
+          className="w-24 h-24 rounded-full object-cover border-2 border-main-color"
+          loading="lazy"
+        />
+      </div>
+
+      {/* User Info */}
+      <div className="space-y-4">
+        <div className="flex justify-between border-b border-gray-700 pb-2">
+          <span className="font-semibold text-gray-400">Username:</span>
+          <span className="font-medium truncate max-w-[60%]">{user.name}</span>
+        </div>
+
+        {user.bio && (
+          <div className="flex justify-between border-b border-gray-700 pb-2">
+            <span className="font-semibold text-gray-400">Bio:</span>
+            <span className="font-medium max-w-[60%] whitespace-pre-wrap">
+              {user.bio}
+            </span>
+          </div>
+        )}
+
+        <div className="flex justify-between border-b border-gray-700 pb-2">
+          <span className="font-semibold text-gray-400">Email:</span>
+          <a
+            href={`mailto:${user.email}`}
+            className="font-medium text-blue-400 hover:underline truncate max-w-[60%]"
           >
-            <RiCloseLargeLine size={18} color="#fff" className="" />
-          </div>
+            {user.email}
+          </a>
         </div>
-        <div className="mt-10 space-y-4">
-          <div className="flex justify-between">
-            <h4>User name :</h4>
-            <p className="font-medium">{user?.name}</p>
-          </div>
-          {user?.bio && (
-            <div className="flex justify-between">
-              <h4>Bio :</h4>
-              <p className="font-medium">{user?.bio}</p>
-            </div>
-          )}
-          <hr />
-          <div className="flex justify-between">
-            <h4>Email :</h4>
-            <p className="font-medium">{user?.email}</p>
-          </div>
-          <hr />
-          <div className="flex justify-between">
-            <h4>Account Types :</h4>
-            <p className="font-medium">{user?.role}</p>
-          </div>
-          <hr />
+
+        <div className="flex justify-between border-b border-gray-700 pb-2">
+          <span className="font-semibold text-gray-400">Account Type:</span>
+          <span className="font-medium">{user.role}</span>
         </div>
+
+        {/* Links */}
+        {user.links && user.links.length > 0 && (
+          <div>
+            <h4 className="font-semibold text-gray-400 mb-2">Links:</h4>
+            <ul className="list-disc list-inside space-y-1 max-w-full">
+              {user.links.map(({ id, name, link }) => (
+                <li key={id}>
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:underline break-words"
+                  >
+                    {name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </Modal>
   );

@@ -6,6 +6,7 @@ export interface TBlogs {
   blogImage: string;
   createdAt: Date;
   isDeleted: boolean;
+  id?: string;
 }
 
 export type Reward = {
