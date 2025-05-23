@@ -5,7 +5,10 @@ import { Modal, Tag, Button, message, Divider } from "antd"; // Added Divider fo
 import { RiCloseLargeLine } from "react-icons/ri";
 import Image from "next/image";
 import React from "react";
-import { approveGameEditRequest } from "@/services/games";
+import {
+  approveGameEditRequest,
+  rejectGameEditRequest,
+} from "@/services/games";
 import { toast } from "sonner";
 
 type TPropsType = {
@@ -25,15 +28,11 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
 
   // console.log("details", details);
 
-  const handleAccept = async (gameId: ApproveResponse) => {
-    // setOpen(false);
-    console.log("Accepting game edit request for ID:", {
-      data: { updateId: gameId },
-    });
-
+  const handleAccept = async (gameId: string) => {
     try {
       const res = await approveGameEditRequest({ data: { updateId: gameId } });
       // console.log("Response from API:", res);
+
       if (res.success) {
         toast.success("Edit request accepted successfully.");
         setOpen(false);
@@ -46,10 +45,24 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
     }
   };
 
-  const handleReject = () => {
-    // TODO: API call to reject edit request
-    message.error("Edit request rejected.");
-    setOpen(false);
+  // ----------------- Function to handle reject ----------------- \\
+  const handleReject = async (gameId: string) => {
+    // console.log(" gameId", gameId);
+
+    try {
+      const res = await rejectGameEditRequest({ data: { updateId: gameId } });
+      // console.log("Response from API:", res);
+
+      if (res.success) {
+        toast.success("Edit request rejected successfully.");
+        setOpen(false);
+      } else {
+        toast.error("Failed to reject edit request.");
+      }
+    } catch (error) {
+      console.error("Error rejecting game edit request:", error);
+      toast.error("Failed to reject edit request.");
+    }
   };
 
   return (
@@ -90,7 +103,7 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
             alt={`${details.title} Thumbnail`}
             width={180}
             height={100}
-            className="rounded-lg object-cover shadow-lg"
+            className="rounded-lg object-cover"
           />
           <div className="flex-1">
             <h3 className="text-3xl font-extrabold text-primary-light">
@@ -278,7 +291,7 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
       <div className="mt-10 flex justify-end gap-4">
         <Button
           danger
-          onClick={handleReject}
+          onClick={() => handleReject(details.id)}
           className="px-6 py-2 h-auto text-base rounded-md"
         >
           Reject

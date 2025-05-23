@@ -68,6 +68,37 @@ export const approveGameEditRequest = async (gameId: ApproveResponse) => {
   }
 };
 
+export const rejectGameEditRequest = async (updateId: string) => {
+  const token = cookies().get("accessToken")?.value;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/reject-game-update`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(updateId),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        next: {
+          tags: ["GAMES"],
+        },
+        cache: "no-store",
+      }
+    );
+
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    console.error("rejectGameEditRequest Error:", error);
+    return {
+      success: false,
+      message: "Internal server error",
+      error: error?.message || error,
+    };
+  }
+};
+
 export const getAllGames = async (page: number) => {
   const token = cookies().get("accessToken")?.value;
   try {
