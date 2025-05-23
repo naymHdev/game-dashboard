@@ -86,7 +86,6 @@ export const deleteUser = async (data: any) => {
 };
 
 export const rejectUserRequest = async (data: any) => {
-  console.log(data);
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(

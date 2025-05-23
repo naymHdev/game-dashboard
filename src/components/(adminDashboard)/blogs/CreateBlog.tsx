@@ -7,6 +7,7 @@ import {
   SubmitHandler,
   useForm,
   useFieldArray,
+  Controller,
 } from "react-hook-form";
 import { createBlog } from "@/services/blog";
 import { MdOutlineCloudUpload } from "react-icons/md";
@@ -16,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Radio } from "antd";
 
 const CreateBlog = () => {
   const [imageFiles, setImageFiles] = useState<File | undefined>(undefined);
@@ -81,31 +83,32 @@ const CreateBlog = () => {
       altTag: data.altTag,
     };
 
-    console.log("blogData", blogData);
+    // console.log("blogData", blogData);
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(blogData));
     if (imageFiles) formData.append("blogImage", imageFiles);
 
-    // try {
-    //   setLoading(true);
-    //   const res = await createBlog(formData);
-    //   if (res.success) {
-    //     toast.success(res.message);
-    //     reset();
-    //     setImagePreview(null);
-    //     router.push("/blogs");
-    //     setLoading(false);
-    //   } else {
-    //     toast.error(res.message);
-    //     setLoading(false);
-    //   }
-    // } catch (error) {
-    //   console.error(error, "error ");
-    //   setLoading(false);
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      setLoading(true);
+      const res = await createBlog(formData);
+      // console.log("createBlog res", res);
+      if (res.success) {
+        toast.success(res.message);
+        reset();
+        setImagePreview(null);
+        router.push("/blogs");
+        setLoading(false);
+      } else {
+        toast.error(res.message);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error, "error ");
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -219,58 +222,97 @@ const CreateBlog = () => {
 
         {/* Rewards Section */}
         <div>
-          <label className="block text-sm font-medium text-white mb-3">
+          <label className="block text-lg font-semibold text-white mb-4">
             Create Table
           </label>
-          <div className="space-y-4">
+
+          <div className="space-y-6">
             {fields.map((field, index) => (
               <div
                 key={field.id}
-                className="flex flex-col sm:flex-row gap-3 items-center"
+                className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 rounded-md border border-gray-500"
               >
-                <input
-                  type="text"
-                  placeholder="Code"
-                  {...register(`rewards.${index}.code` as const, {
-                    required: "Code is required",
-                  })}
-                  className="w-full sm:w-1/3 bg-card text-white rounded-md px-3 py-2 border bg-transparent border-neutral-500"
-                />
-                <input
-                  type="text"
-                  placeholder="Reward"
-                  {...register(`rewards.${index}.reward` as const, {
-                    required: "Reward is required",
-                  })}
-                  className="w-full sm:flex-1 bg-card text-white rounded-md px-3 py-2 border border-neutral-500 bg-transparent"
-                />
-                <input
-                  type="text"
-                  placeholder="Validity"
-                  {...register(`rewards.${index}.validity` as const, {
-                    required: "Reward is required",
-                  })}
-                  className="w-full sm:flex-1 bg-card text-white rounded-md px-3 py-2 border border-neutral-500 bg-transparent"
-                />
-                <button
-                  type="button"
-                  onClick={() => remove(index)}
-                  className="text-red-600 hover:text-red-500 p-2"
-                  aria-label="Remove reward"
-                >
-                  <Trash2 size={20} />
-                </button>
+                {/* Code Input */}
+                <div className="flex flex-col">
+                  <label className="text-sm text-white font-medium mb-2">
+                    Code
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Code"
+                    {...register(`rewards.${index}.code` as const, {
+                      required: "Code is required",
+                    })}
+                    className="w-full bg-card text-white rounded-md px-3 py-2 border bg-transparent border-neutral-500"
+                  />
+                </div>
+
+                {/* Reward Input */}
+                <div className="flex flex-col">
+                  <label className="text-sm text-white font-medium mb-2">
+                    Reward
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Reward"
+                    {...register(`rewards.${index}.reward` as const, {
+                      required: "Reward is required",
+                    })}
+                    className="w-full bg-card text-white rounded-md px-3 py-2 border border-neutral-500 bg-transparent"
+                  />
+                </div>
+
+                {/* Validity Radio Input - Now Always Radio */}
+                <div className="flex flex-col">
+                  <label className="text-sm text-white font-medium mb-2">
+                    Validity
+                  </label>
+                  <Controller
+                    control={control}
+                    name={`rewards.${index}.validity`}
+                    rules={{ required: "Validity selection is required" }}
+                    defaultValue="yes"
+                    render={({ field }) => (
+                      <Radio.Group
+                        {...field}
+                        className="w-full"
+                        buttonStyle="solid"
+                        optionType="button"
+                        options={[
+                          { label: "Yes", value: "yes" },
+                          { label: "No", value: "no" },
+                        ]}
+                      />
+                    )}
+                  />
+                </div>
+
+                {/* Delete Button */}
+                <div className="flex items-center justify-start sm:justify-end mt-6 sm:mt-0">
+                  <button
+                    type="button"
+                    onClick={() => remove(index)}
+                    className="text-red-500 hover:text-red-400 transition"
+                    aria-label="Remove reward"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
               </div>
             ))}
+
+            {/* Add More Button */}
             <button
               type="button"
-              onClick={() => append({ code: "", reward: "", validity: "" })}
-              className="inline-flex items-center gap-2 text-white font-semibold"
+              onClick={() => append({ code: "", reward: "", validity: "yes" })}
+              className="inline-flex items-center gap-2 text-white font-semibold bg-main-color px-4 py-2 rounded-md hover:bg-opacity-80 transition"
             >
               <MdOutlineCloudUpload size={20} />
               Add Reward
             </button>
           </div>
+
+          {/* General Error */}
           {(errors.rewards as any)?.message && (
             <p className="text-red-500 mt-2 text-sm">
               {(errors.rewards as any).message}
@@ -283,7 +325,7 @@ const CreateBlog = () => {
           type="submit"
           className="w-2/12 mx-auto bg-primary-green text-white rounded-full py-2 font-semibold"
         >
-          Submit Blog
+          {loading ? "Submitting..." : "Submit Blog"}
         </button>
       </form>
     </div>

@@ -15,13 +15,16 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
   // ---------- Accept User ---------- \\
   const handleAcceptRequest = async (id: string) => {
     console.log(id);
-    const userId = {
+    const acceptedData = {
       data: {
         updateId: id,
       },
     };
+
+    console.log("acceptedData", acceptedData);
+
     try {
-      const res = await updateUserRequest(userId);
+      const res = await updateUserRequest(acceptedData);
       console.log(res);
       if (res.success) {
         toast.success(res.message);
