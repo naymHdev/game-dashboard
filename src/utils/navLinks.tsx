@@ -43,9 +43,4 @@ export const navLinks = [
     icon: <IoSettingsOutline size={18} />,
     label: <Link href={"/settings"}>Settings</Link>,
   },
-  // {
-  //   key: "logout",
-  //   icon: <RiLogoutCircleLine size={18} />,
-  //   label: <Link href={"/login"}>Logout</Link>,
-  // },
 ];

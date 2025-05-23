@@ -1,6 +1,11 @@
 "use server";
 
 import { cookies } from "next/headers";
+type ApproveResponse = {
+  data: {
+    updateId: string;
+  };
+};
 
 export const getGameEditRequest = async () => {
   const token = cookies().get("accessToken")?.value;
@@ -32,11 +37,37 @@ export const getGameEditRequest = async () => {
   }
 };
 
-type ApproveResponse = {
-  data: {
-    updateId: string;
-  };
+export const deleteGame = async (gameId: string) => {
+  const token = cookies().get("accessToken")?.value;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/delete-game`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(gameId),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        next: {
+          tags: ["GAMES"],
+        },
+        cache: "no-store",
+      }
+    );
+
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    console.error("deleteGame Error:", error);
+    return {
+      success: false,
+      message: "Internal server error",
+      error: error?.message || error,
+    };
+  }
 };
+
 export const approveGameEditRequest = async (gameId: ApproveResponse) => {
   const token = cookies().get("accessToken")?.value;
   try {

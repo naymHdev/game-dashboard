@@ -8,7 +8,6 @@ const AllGamesPage = async ({ searchParams }) => {
   return (
     <>
       <div>
-        {/* <AllGamesTable gamesArray={gamesArray} /> */}
         <GameTable gamesArray={gamesArray} searchParams={page} />
       </div>
     </>

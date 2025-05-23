@@ -1,25 +1,35 @@
 "use client";
 
-import React, { use, useState } from "react";
-import {
-  Flex,
-  message,
-  Pagination,
-  Popconfirm,
-  Table,
-  Tag,
-  Tooltip,
-} from "antd";
-import type { PopconfirmProps, TableColumnsType, TableProps } from "antd";
+import React, { useState } from "react";
+import { Flex, Pagination, Popconfirm, Table, Tag, Tooltip } from "antd";
+import type { TableColumnsType } from "antd";
 import moment from "moment";
 import { Eye, Trash } from "lucide-react";
 import { TGameTable } from "@/types/gameTable";
 import { useRouter, useSearchParams } from "next/navigation";
 import GameDetails from "./GameDetails";
+import { toast } from "sonner";
+import { deleteGame } from "@/services/games";
 
-const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
-  console.log(e);
-  message.success("Deleted the game");
+const confirmBlock = async (id: string) => {
+  // console.log(id);
+  try {
+    const deleteInfo = {
+      data: {
+        gameId: id,
+      },
+    };
+    const res = await deleteGame(deleteInfo);
+    // console.log("res", res);
+
+    if (res?.success) {
+      toast.success("User deleted successfully");
+    } else {
+      toast.error(res?.message || "Failed to delete user");
+    }
+  } catch (error) {
+    toast.error("Something went wrong!");
+  }
 };
 
 const GameTable = ({
@@ -32,7 +42,7 @@ const GameTable = ({
   const [open, setOpen] = useState(false);
   const [isGameDetails, setIsGameDetails] = useState(null);
 
-    console.log(gamesArray);
+  // console.log(gamesArray);
 
   const dataSource: TGameTable[] = gamesArray?.data?.allGames?.map(
     (game: any, index: number) => ({
@@ -126,7 +136,7 @@ const GameTable = ({
           <Popconfirm
             title="Delete the game"
             description="Are you sure to delete the game?"
-            onConfirm={confirmBlock}
+            onConfirm={() => confirmBlock(record?.id as string)}
             okText="Yes"
             cancelText="No"
           >
