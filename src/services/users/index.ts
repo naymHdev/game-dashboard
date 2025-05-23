@@ -84,3 +84,32 @@ export const deleteUser = async (data: any) => {
     };
   }
 };
+
+export const rejectUserRequest = async (data: any) => {
+  console.log(data);
+  const token = cookies().get("accessToken")?.value;
+  try {
+    const res = await fetch(
+      `https://gaming-showcase-backend.onrender.com/api/v1/admin/reject-profile-update`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        cache: "no-store",
+      }
+    );
+
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    console.error("Reject User Request Error:", error);
+    return {
+      success: false,
+      message: "Internal server error",
+      error: error?.message || error,
+    };
+  }
+};

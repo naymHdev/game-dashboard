@@ -1,20 +1,20 @@
 "use client";
 import Image from "next/image";
 import userProfile from "@/assets/image/userImage.png";
-import { Button, message, Popconfirm, PopconfirmProps } from "antd";
+import { Button, message, Popconfirm } from "antd";
 import React, { useState } from "react";
 import UserModal from "./UserModal";
 import { IUser } from "@/types";
-import { deleteUser, updateUserRequest } from "@/services/users";
+import { rejectUserRequest, updateUserRequest } from "@/services/users";
 import { toast } from "sonner";
 
 const UserRequestCard = ({ data }: { data: IUser }) => {
-  // console.log(data);
+  // console.log(" data", data);
   const [open, setOpen] = useState(false);
 
   // ---------- Accept User ---------- \\
   const handleAcceptRequest = async (id: string) => {
-    // console.log(id);
+    console.log(id);
     const userId = {
       data: {
         updateId: id,
@@ -22,7 +22,7 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
     };
     try {
       const res = await updateUserRequest(userId);
-      // console.log(res);
+      console.log(res);
       if (res.success) {
         toast.success(res.message);
       } else {
@@ -36,16 +36,16 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
 
   // ---------- Delete User ---------- \\
   const handleDelete = async (id: string) => {
-    console.log(id);
     const deleteInfo = {
       data: {
-        userId: id,
+        updateId: id,
       },
     };
+    // console.log("deleteInfo", deleteInfo);
 
     try {
-      const res = await deleteUser(deleteInfo);
-      console.log("res", res);
+      const res = await rejectUserRequest(deleteInfo);
+      // console.log("res", res);
 
       if (res?.success) {
         message.success("User deleted successfully");
@@ -78,7 +78,7 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
 
         <div className="flex gap-x-5">
           <Button
-            onClick={() => handleAcceptRequest(data?._id as string)}
+            onClick={() => handleAcceptRequest(data?.id as string)}
             className="bg-main-colo !border-none  !rounded-none !rounded-tl-xl  !rounded-br-xl !px-5"
           >
             Accept
@@ -87,7 +87,7 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
           <Popconfirm
             title="Delete Request"
             description="Are you sure to delete this request?"
-            onConfirm={() => handleDelete(data?._id as string)}
+            onConfirm={() => handleDelete(data?.id as string)}
             okText="Yes"
             cancelText="No"
           >

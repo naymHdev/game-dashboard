@@ -57,7 +57,7 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
           </div>
         </Link>
 
-        {user && user.role === "ADMIN" && (
+        {user && user.role === "ADMIN" || "SUPERADMIN" && (
           <Link href={"#"} className="flex items-center">
             <Avatar
               src={avatarImg.src}

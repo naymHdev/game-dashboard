@@ -77,7 +77,7 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
       <div className="absolute  w-[90%]  bottom-5 flex justify-center items-center px-2">
         {!collapsed ? (
           <>
-            {user?.role === "ADMIN" ? (
+            {user?.role === "ADMIN" || "SUPERADMIN" ? (
               <Button
                 onClick={handleLogOut}
                 icon={<IoLogInOutline size={22} />}
@@ -98,7 +98,7 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
           </>
         ) : (
           <>
-            {user?.role === "ADMIN" ? (
+            {user?.role === "ADMIN" || "SUPERADMIN" ? (
               <>
                 <div
                   onClick={handleLogOut}
