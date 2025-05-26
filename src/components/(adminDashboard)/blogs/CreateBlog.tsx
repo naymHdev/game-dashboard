@@ -1,5 +1,8 @@
 "use client";
 
+
+import dynamic from "next/dynamic";
+
 import { useState } from "react";
 import { BlogFormInputs } from "@/types/blogs";
 import {
@@ -15,7 +18,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
-import ReactQuill from "react-quill";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import { Radio } from "antd";
 
