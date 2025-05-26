@@ -44,7 +44,7 @@ export const getCurrentUser = async () => {
 };
 
 export const logout = async () => {
-  (await cookies()).delete("accessToken");
+  return (await cookies()).delete("accessToken");
 };
 
 export const allUser = async () => {

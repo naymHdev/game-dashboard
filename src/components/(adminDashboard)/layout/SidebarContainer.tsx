@@ -37,6 +37,7 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
 
   const handleLogOut = async () => {
     await logout();
+    // console.log(res);
     window.location.reload();
   };
 
@@ -77,7 +78,7 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
       <div className="absolute  w-[90%]  bottom-5 flex justify-center items-center px-2">
         {!collapsed ? (
           <>
-            {user?.role === "ADMIN" || "SUPERADMIN" ? (
+            {user?.role === "ADMIN" || user?.role === "SUPERADMIN" ? (
               <Button
                 onClick={handleLogOut}
                 icon={<IoLogInOutline size={22} />}
@@ -98,7 +99,7 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
           </>
         ) : (
           <>
-            {user?.role === "ADMIN" || "SUPERADMIN" ? (
+            {user?.role === "ADMIN" || user?.role === "SUPERADMIN" ? (
               <>
                 <div
                   onClick={handleLogOut}

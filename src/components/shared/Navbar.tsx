@@ -14,6 +14,7 @@ type TNavbarProps = {
 
 const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
   const { user } = useUser();
+  // console.log("user", user);
 
   return (
     <div className="flex items-center justify-between w-[97%] font-poppins">
@@ -57,15 +58,16 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
           </div>
         </Link>
 
-        {user && user.role === "ADMIN" || "SUPERADMIN" && (
-          <Link href={"#"} className="flex items-center">
-            <Avatar
-              src={avatarImg.src}
-              size={48}
-              className="border border-main-color size-12"
-            ></Avatar>
-          </Link>
-        )}
+        {(user && user?.role === "ADMIN") ||
+          (user?.role === "SUPERADMIN" && (
+            <Link href={"#"} className="flex items-center">
+              <Avatar
+                src={avatarImg.src}
+                size={48}
+                className="border border-main-color size-12"
+              ></Avatar>
+            </Link>
+          ))}
       </Flex>
     </div>
   );

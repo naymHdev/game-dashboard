@@ -30,7 +30,7 @@ const LoginForm = () => {
 
     try {
       const res = await adminSignIn(authInfo);
-      // console.log(res);
+      console.log(res);
       if (res.success) {
         toast.success("Successfully Login", {
           duration: 1000,

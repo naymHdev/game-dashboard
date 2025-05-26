@@ -1,14 +1,15 @@
 "use client";
 
-import { Image, Input, message, Popconfirm, TableProps, Tag } from "antd";
+import { Image,message, Popconfirm, TableProps, Tag } from "antd";
 import { useState } from "react";
-import { ArrowDownWideNarrowIcon, Eye, Search, Trash2 } from "lucide-react";
+import { Eye, Trash2, UserRoundPen } from "lucide-react";
 import moment from "moment";
 import UserDetails from "./UserDetails";
 import DataTable from "@/utils/DataTable";
 import { IUser } from "@/types";
 import { TDataType } from "@/types/userTable";
 import { deleteUser } from "@/services/users";
+import RoleUpdateModal from "./RoleUpdateModal";
 
 const UsersTable = ({
   usersData,
@@ -17,6 +18,7 @@ const UsersTable = ({
 }) => {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // console.log("usersData", usersData);
 
@@ -73,10 +75,22 @@ const UsersTable = ({
       render: (date: string) => moment(date).format("YYYY-MM-DD"),
     },
     {
-      title: "Acc Type",
+      title: "Account Type",
       dataIndex: "role",
-      filterIcon: () => <ArrowDownWideNarrowIcon className="text-white" />,
-      onFilter: (value, record) => record.role.indexOf(value as string) === 0,
+      render: (role: string, record) => (
+        <div className="flex items-center gap-x-2">
+          <Tag color={role === "admin" ? "red" : "blue"}>{role}</Tag>
+          <div
+            onClick={() => {
+              setSelectedUser(record);
+              setIsOpen(true);
+            }}
+            className="cursor-pointer"
+          >
+            <UserRoundPen />
+          </div>
+        </div>
+      ),
     },
     {
       title: "Status",
@@ -123,6 +137,7 @@ const UsersTable = ({
       </div>
       <DataTable columns={columns} usersData={usersData} pageSize={10} />
       <UserDetails open={open} setOpen={setOpen} user={selectedUser} />
+      <RoleUpdateModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
