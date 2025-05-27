@@ -1,6 +1,6 @@
 "use client";
 
-import { Image,message, Popconfirm, TableProps, Tag } from "antd";
+import { Image, message, Popconfirm, TableProps, Tag } from "antd";
 import { useState } from "react";
 import { Eye, Trash2, UserRoundPen } from "lucide-react";
 import moment from "moment";
@@ -137,7 +137,11 @@ const UsersTable = ({
       </div>
       <DataTable columns={columns} usersData={usersData} pageSize={10} />
       <UserDetails open={open} setOpen={setOpen} user={selectedUser} />
-      <RoleUpdateModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <RoleUpdateModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        user={selectedUser}
+      />
     </div>
   );
 };

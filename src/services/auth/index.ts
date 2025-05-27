@@ -63,3 +63,27 @@ export const allUser = async () => {
     return Error(error);
   }
 };
+
+export const updateUserRole = async (data: {
+  userId: string;
+  role: string;
+  password: string;
+}) => {
+  const token = cookies().get("accessToken")?.value;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/update_user_to_admin`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    return await res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};

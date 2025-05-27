@@ -1,10 +1,13 @@
 "use client";
-import { adminSignIn } from "@/services/auth";
+import { useUser } from "@/contexts/UserContext";
+import { adminSignIn, getCurrentUser } from "@/services/auth";
 import { FieldType } from "@/types";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input, Flex } from "antd";
+import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = async (
@@ -14,7 +17,9 @@ const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = async (
 };
 
 const LoginForm = () => {
+  const { setUser } = useUser();
   const route = useRouter();
+  const [loading, setIsLoading] = useState(false);
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     // console.log("Success:", values);
@@ -26,15 +31,20 @@ const LoginForm = () => {
       },
     };
 
+    setIsLoading(true);
+
     // console.log("authInfo", authInfo);
 
     try {
       const res = await adminSignIn(authInfo);
+      setIsLoading(false);
       console.log(res);
       if (res.success) {
         toast.success("Successfully Login", {
           duration: 1000,
         });
+
+        setUser(await getCurrentUser());
         route.push("/dashboard");
       } else {
         toast.error(res.message, {
@@ -79,7 +89,7 @@ const LoginForm = () => {
         <Input.Password size="large" placeholder="Password" />
       </Form.Item>
 
-      <Form.Item<FieldType> name="remember" valuePropName="checked">
+      {/* <Form.Item<FieldType> name="remember" valuePropName="checked">
         <Flex justify="space-between" align="center">
           <Checkbox>
             <p className=" font-semibold">Remember me</p>
@@ -88,9 +98,22 @@ const LoginForm = () => {
             <p className="font-semibold">Forgot Password?</p>
           </Link>
         </Flex>
-      </Form.Item>
+      </Form.Item> */}
 
-      <Button htmlType="submit" size="large" block style={{ border: "none " }}>
+      <Button
+        htmlType="submit"
+        size="large"
+        block
+        style={{ border: "none " }}
+        loading={loading}
+        icon={
+          loading ? (
+            <LoaderCircle className="animate-spin text-white text-xl" />
+          ) : (
+            <></>
+          )
+        }
+      >
         Sign In
       </Button>
     </Form>

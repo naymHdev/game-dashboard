@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import { IoLogInOutline } from "react-icons/io5";
 import { useUser } from "@/contexts/UserContext";
 import { logout } from "@/services/auth";
+import logo from "@/assets/logo/header-logo.png";
+import Image from "next/image";
 
 const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
   const [current, setCurrent] = useState("dashboard");
@@ -59,7 +61,9 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
       {/* logo  */}
       <div className="mt-10 flex flex-col justify-center items-center gap-y-5">
         <Link href={"/"}>
-          <h2 className=" text-5xl font-extrabold text-white">Logo</h2>
+          <div>
+            <Image src={logo} alt="logo" height={110} width={110} />
+          </div>
         </Link>
         <h1
           className={`${

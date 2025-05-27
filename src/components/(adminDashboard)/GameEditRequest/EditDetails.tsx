@@ -17,12 +17,6 @@ type TPropsType = {
   details: TGameSubmission | null;
 };
 
-type ApproveResponse = {
-  data: {
-    updateId: string;
-  };
-};
-
 const EditDetails = ({ open, setOpen, details }: TPropsType) => {
   if (!details) return null;
 
@@ -99,18 +93,18 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
       <div className="space-y-6 text-white text-base">
         <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
           <Image
-            src={details.thumbnail || "/user-profile.png"}
-            alt={`${details.title} Thumbnail`}
+            src={details?.thumbnail || "/user-profile.png"}
+            alt={`${details?.title} Thumbnail`}
             width={180}
             height={100}
             className="rounded-lg object-cover"
           />
           <div className="flex-1">
             <h3 className="text-3xl font-extrabold text-primary-light">
-              {details.title}
+              {details?.title}
             </h3>
             <p className="text-gray-300 mt-2 text-lg leading-relaxed">
-              {details.description}
+              {details?.description}
             </p>
           </div>
         </div>
@@ -120,14 +114,14 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
           <div>
             <p className="text-gray-400">Submitted By:</p>
             <p className="text-lg font-semibold">
-              {typeof details.userId === "object" && details.userId !== null
-                ? details.userId.name || "N/A"
+              {typeof details.userId === "object" && details?.userId !== null
+                ? details?.userId?.name || "N/A"
                 : "N/A"}
-              {typeof details.userId === "object" &&
-                details.userId !== null &&
-                details.userId.email && (
+              {typeof details?.userId === "object" &&
+                details?.userId !== null &&
+                details?.userId.email && (
                   <span className="block text-sm text-gray-500">
-                    {details.userId.email}
+                    {details?.userId.email}
                   </span>
                 )}
             </p>
@@ -136,43 +130,43 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
             <p className="text-gray-400">Current Status:</p>
             <Tag
               color={
-                details.status === "pending"
+                details?.status === "pending"
                   ? "orange"
-                  : details.status === "approved"
+                  : details?.status === "approved"
                   ? "green"
                   : "red"
               }
               className="uppercase text-base px-3 py-1 rounded-full"
             >
-              {details.status}
+              {details?.status}
             </Tag>
           </div>
           <div>
             <p className="text-gray-400">Game Status:</p>
             <Tag
               color={
-                details.gameStatus === "upcoming"
+                details?.gameStatus === "upcoming"
                   ? "geekblue"
-                  : details.gameStatus === "released"
+                  : details?.gameStatus === "released"
                   ? "lime"
                   : "cyan"
               }
               className="uppercase text-base px-3 py-1 rounded-full"
             >
-              {details.gameStatus}
+              {details?.gameStatus}
             </Tag>
           </div>
           <div>
             <p className="text-gray-400">Price:</p>
             <p className="text-lg font-semibold text-green-400">
-              ${details.price.toFixed(2)}
+              ${details?.price.toFixed(2)}
             </p>
           </div>
-          {details.gameStatus === "upcoming" && details.upcomingDate && (
+          {details?.gameStatus === "upcoming" && details?.upcomingDate && (
             <div>
               <p className="text-gray-400">Expected Release:</p>
               <p className="text-lg font-semibold">
-                {new Date(details.upcomingDate).toLocaleDateString("en-US", {
+                {new Date(details?.upcomingDate).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
@@ -187,8 +181,8 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
           <div>
             <p className="text-gray-400">Platforms:</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              {details.platform.length > 0 ? (
-                details.platform.map((p) => (
+              {details?.platform.length > 0 ? (
+                details?.platform.map((p) => (
                   <Tag
                     key={p}
                     color="blue"
@@ -205,8 +199,8 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
           <div>
             <p className="text-gray-400">Categories:</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              {details.categories.length > 0 ? (
-                details.categories.map((c) => (
+              {details?.categories.length > 0 ? (
+                details?.categories.map((c) => (
                   <Tag
                     key={c}
                     color="purple"
@@ -227,24 +221,24 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
           <div>
             <p className="text-gray-400">Submitted At:</p>
             <p className="text-base font-semibold">
-              {new Date(details.submittedAt).toLocaleString()}
+              {new Date(details?.submittedAt).toLocaleString()}
             </p>
           </div>
           <div>
             <p className="text-gray-400">Last Updated:</p>
             <p className="text-base font-semibold">
-              {new Date(details.updatedAt).toLocaleString()}
+              {new Date(details?.updatedAt).toLocaleString()}
             </p>
           </div>
         </div>
         {/* Social Links */}
-        {details.socialLinks && details.socialLinks.length > 0 && (
+        {details?.socialLinks && details?.socialLinks.length > 0 && (
           <>
             <Divider className="my-6 border-gray-700" />
             <div>
               <p className="text-gray-400">Social Links:</p>
               <ul className="list-disc list-inside ml-2 mt-3 text-secondary">
-                {details.socialLinks.map((link, i) => (
+                {details?.socialLinks.map((link, i) => (
                   <li key={i} className="truncate max-w-full mb-1">
                     <a
                       href={link}
@@ -261,13 +255,13 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
           </>
         )}
         {/* Game Images (Gallery) */}
-        {details.image && details.image.length > 0 && (
+        {details?.image && details?.image.length > 0 && (
           <>
             <Divider className="my-6 border-gray-700" />
             <div>
               <p className="text-gray-400 mb-4">Game Screenshots:</p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {details.image.map((imgSrc, index) => (
+                {details?.image.map((imgSrc, index) => (
                   <div
                     key={index}
                     className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md"
@@ -291,14 +285,14 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
       <div className="mt-10 flex justify-end gap-4">
         <Button
           danger
-          onClick={() => handleReject(details.id)}
+          onClick={() => handleReject(details?.id)}
           className="px-6 py-2 h-auto text-base rounded-md"
         >
           Reject
         </Button>
         <Button
           type="primary"
-          onClick={() => handleAccept(details.id)}
+          onClick={() => handleAccept(details?.id)}
           className="px-6 py-2 h-auto text-base rounded-md bg-green-500 hover:bg-green-600"
         >
           Accept
