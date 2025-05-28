@@ -3,6 +3,7 @@ import { allUser } from "@/services/auth";
 
 const UserPage = async () => {
   const { data: usersData } = await allUser();
+
   // console.log("usersData", usersData);
 
   return (

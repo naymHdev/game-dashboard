@@ -15,8 +15,8 @@ const UserRequestContainer = ({ userData }: { userData: any }) => {
       </div>
       {/* show request users data */}
       <div className="mt-10 grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-4">
-        {userData?.data?.map((user: IUser, inx) => (
-          <UserRequestCard key={inx + 1} data={user} />
+        {userData?.data?.map((user: IUser, idx: number) => (
+          <UserRequestCard key={idx + 1} data={user} />
         ))}
       </div>
     </div>

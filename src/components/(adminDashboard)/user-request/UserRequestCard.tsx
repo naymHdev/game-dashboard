@@ -7,6 +7,7 @@ import UserModal from "./UserModal";
 import { IUser } from "@/types";
 import { rejectUserRequest, updateUserRequest } from "@/services/users";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 const UserRequestCard = ({ data }: { data: IUser }) => {
   // console.log(" data", data);
@@ -63,10 +64,12 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
   return (
     <div className="bg-main-color-bg p-4 flex gap-x-3  text-text-color rounded-md">
       <Image
-        src={userProfile}
+        src={data?.photo || userProfile}
         alt="profile_image"
         className="size-20 cursor-pointer rounded-full"
         onClick={() => setOpen(true)}
+        width={40}
+        height={40}
       ></Image>
       <div className="space-y-2 ">
         <h3
@@ -76,7 +79,16 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
           {data?.name}
         </h3>
         <p>
-          Account Type: <span className="font-medium">{data?.status}</span>
+          Account Type:
+          <span
+            className={cn(
+              "font-medium text-sm capitalize px-1",
+              data?.status === "pending" && "text-red-500",
+              data?.status === "approved" && "text-green-600"
+            )}
+          >
+            {data?.status}
+          </span>
         </p>
 
         <div className="flex gap-x-5">
@@ -100,7 +112,7 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
           </Popconfirm>
         </div>
       </div>
-      <UserModal open={open} setOpen={setOpen}></UserModal>
+      <UserModal open={open} setOpen={setOpen} user={data} />
     </div>
   );
 };

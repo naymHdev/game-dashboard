@@ -1,6 +1,6 @@
 import { RiDashboardHorizontalFill, RiBloggerLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
-import { PiListPlusFill } from "react-icons/pi";
+import { PiListPlusFill, PiUsersThree } from "react-icons/pi";
 import { FilePenLine } from "lucide-react";
 import { GoPeople } from "react-icons/go";
 import { CgGames } from "react-icons/cg";
@@ -38,6 +38,11 @@ export const navLinks = [
     label: <Link href={"/user-request"}>Profile Update Request</Link>,
   },
 
+  {
+    key: "Subscribers",
+    icon: <PiUsersThree size={18} />,
+    label: <Link href={"/subscribers"}>Subscribers</Link>,
+  },
   {
     key: "settings",
     icon: <IoSettingsOutline size={18} />,

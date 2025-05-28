@@ -16,7 +16,7 @@ const LoginPage = () => {
         <div>
           <div className="mb-6 flex flex-col justify-center items-center gap-y-4">
             <Image src={logo} alt="logo" width={200} height={200} />
-            <h2 className="text-2xl font-bold">Sign In</h2>
+            <h2 className="text-2xl font-bold">Sign In Dashboard</h2>
           </div>
           <LoginForm />
         </div>

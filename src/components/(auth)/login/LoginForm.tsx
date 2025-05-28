@@ -5,7 +5,6 @@ import { FieldType } from "@/types";
 import type { FormProps } from "antd";
 import { Button, Checkbox, Form, Input, Flex } from "antd";
 import { LoaderCircle } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -44,8 +43,14 @@ const LoginForm = () => {
           duration: 1000,
         });
 
-        setUser(await getCurrentUser());
-        route.push("/dashboard");
+        // Fetch and set user before navigating
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+
+        // Wait for toast to display before navigating
+        setTimeout(() => {
+          route.push("/dashboard");
+        }, 1000);
       } else {
         toast.error(res.message, {
           duration: 1000,
