@@ -1,7 +1,5 @@
 "use server";
 
-import { cookies } from "next/headers";
-
 export const getSubscribers = async () => {
   try {
     const res = await fetch(
@@ -11,10 +9,6 @@ export const getSubscribers = async () => {
         headers: {
           "Content-Type": "application/json",
         },
-        next: {
-          tags: ["Subscribers"],
-        },
-        cache: "no-store",
       }
     );
 
@@ -42,10 +36,6 @@ export const deleteSubscriber = async (data: any) => {
           "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
         },
-        next: {
-          tags: ["Subscribers"],
-        },
-        cache: "no-store",
       }
     );
 

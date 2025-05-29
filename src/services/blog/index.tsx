@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export const getAllBlogs = async (page: number) => {
@@ -15,7 +16,7 @@ export const getAllBlogs = async (page: number) => {
           revalidate: 30,
           tags: ["Blogs"],
         },
-        cache: "no-store",
+        cache: "force-cache",
       }
     );
 
@@ -38,10 +39,9 @@ export const createBlog = async (blogData: FormData) => {
       {
         method: "POST",
         body: blogData,
-        cache: "no-store",
       }
     );
-
+    revalidateTag("BLOG");
     const data = await res.json();
     return data;
   } catch (error: any) {
