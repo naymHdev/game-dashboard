@@ -6,7 +6,7 @@ export const dashBoardStatics = async () => {
   try {
     const token = cookies().get("accessToken")?.value;
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/admin/dashboard`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/dashboard`,
       {
         method: "GET",
         headers: {

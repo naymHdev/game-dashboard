@@ -6,7 +6,7 @@ export const getAllUserRequests = async () => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/admin/pending-profile-updates`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/pending-profile-updates`,
       {
         method: "GET",
         headers: {
@@ -33,7 +33,7 @@ export const updateUserRequest = async (data: any) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/admin/approve-profile-update`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/approve-profile-update`,
       {
         method: "POST",
         headers: {
@@ -61,7 +61,7 @@ export const deleteUser = async (data: any) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/admin/delete-user`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/delete-user`,
       {
         method: "DELETE",
         body: JSON.stringify(data),
@@ -89,7 +89,7 @@ export const rejectUserRequest = async (data: any) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/admin/reject-profile-update`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/reject-profile-update`,
       {
         method: "DELETE",
         body: JSON.stringify(data),

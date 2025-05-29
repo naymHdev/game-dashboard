@@ -6,7 +6,7 @@ import { jwtDecode } from "jwt-decode";
 export const adminSignIn = async (userData: FieldType) => {
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/admin/login`,
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/login`,
       {
         method: "POST",
         headers: {

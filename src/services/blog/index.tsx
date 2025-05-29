@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export const getAllBlogs = async (page: number) => {
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/blog/getAllBlog?page=${page}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/blog/getAllBlog?page=${page}`,
       {
         method: "GET",
         headers: {
@@ -34,7 +34,7 @@ export const getAllBlogs = async (page: number) => {
 export const createBlog = async (blogData: FormData) => {
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/blog/create-blog`,
+      `${process.env.NEXT_PUBLIC_API_URL}/blog/create-blog`,
       {
         method: "POST",
         body: blogData,
@@ -58,7 +58,7 @@ export const deleteBlog = async (blogId: string) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `https://gaming-showcase-backend.onrender.com/api/v1/blog/delete-blog`,
+      `${process.env.NEXT_PUBLIC_API_URL}/blog/delete-blog`,
       {
         method: "DELETE",
         body: JSON.stringify(blogId),
