@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import { deleteGame } from "@/services/games";
 
 const confirmBlock = async (id: string) => {
-  // console.log(id);
   try {
     const deleteInfo = {
       data: {
@@ -20,7 +19,6 @@ const confirmBlock = async (id: string) => {
       },
     };
     const res = await deleteGame(deleteInfo);
-    // console.log("res", res);
 
     if (res?.success) {
       toast.success("User deleted successfully");
@@ -42,7 +40,6 @@ const GameTable = ({
   const [open, setOpen] = useState(false);
   const [isGameDetails, setIsGameDetails] = useState(null);
 
-  console.log(gamesArray);
 
   const dataSource: TGameTable[] = gamesArray?.data?.allGames?.map(
     (game: any, index: number) => ({
