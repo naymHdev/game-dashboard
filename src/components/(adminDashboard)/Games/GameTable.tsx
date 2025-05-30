@@ -66,7 +66,7 @@ const GameTable = ({
       render: (_: any, __: any, index: number) => index + 1,
     },
     { title: "Game Name", dataIndex: "title" },
-    { title: "By Website", dataIndex: "linkType" },
+    { title: "Buy Website", dataIndex: "linkType" },
     {
       title: "Publisher Email",
       key: "publisherEmail",
