@@ -11,6 +11,10 @@ export const getSubscribers = async () => {
         headers: {
           "Content-Type": "application/json",
         },
+        next: {
+          tags: ["SUBSCRIBERS"],
+        },
+        cache: "force-cache",
       }
     );
 
