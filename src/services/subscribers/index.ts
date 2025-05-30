@@ -1,5 +1,7 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 export const getSubscribers = async () => {
   try {
     const res = await fetch(
