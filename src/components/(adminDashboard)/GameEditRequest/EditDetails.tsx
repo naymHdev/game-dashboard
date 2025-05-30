@@ -19,7 +19,6 @@ type TPropsType = {
 };
 
 const EditDetails = ({ open, setOpen, details }: TPropsType) => {
-
   console.log("details", details);
 
   if (!details) return null;
@@ -61,6 +60,10 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
       console.error("Error rejecting game edit request:", error);
       toast.error("Failed to reject edit request.");
     }
+  };
+
+  const handleChangeLinkStatus = async (gameId: string) => {
+    console.log("gameId", gameId);
   };
 
   return (
@@ -258,6 +261,7 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
             </div>
           </>
         )}
+
         {/* Game Images (Gallery) */}
         {details?.image && details?.image.length > 0 && (
           <>

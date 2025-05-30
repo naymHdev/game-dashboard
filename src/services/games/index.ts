@@ -152,3 +152,28 @@ export const getAllGames = async (page: number) => {
     };
   }
 };
+
+export const changeStatus = async (gameId: string) => {
+  const token = cookies().get("accessToken")?.value;
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/admin/update_linkType`, {
+      method: "PATCH",
+      body: JSON.stringify(gameId),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+
+    const data = await res.json();
+    revalidateTag("GAMES");
+    return data;
+  } catch (error: any) {
+    console.error("changeStatus Error:", error);
+    return {
+      success: false,
+      message: "Internal server error",
+      error: error?.message || error,
+    };
+  }
+};

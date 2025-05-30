@@ -1,6 +1,7 @@
 import { Divider, Modal, Tag } from "antd";
 import Image from "next/image";
 import { RiCloseLargeLine } from "react-icons/ri";
+import StatusUpdateModal from "../GameEditRequest/StatusUpdateModal";
 
 type SocialLink = {
   name: string;
@@ -30,6 +31,7 @@ type TPropsType = {
     gameStatus?: string;
     createdAt?: string;
     updatedAt?: string;
+    id?: string;
   };
 };
 
@@ -47,7 +49,10 @@ const GameDetails = ({ open, setOpen, details }: TPropsType) => {
     gameStatus,
     createdAt,
     updatedAt,
+    id
   } = details || {};
+
+  // console.log("details", details);
 
   // Example of how you might determine "status" - fallback to "pending"
   // You can adjust based on your real data
@@ -263,6 +268,9 @@ const GameDetails = ({ open, setOpen, details }: TPropsType) => {
                   </li>
                 ))}
               </ul>
+            </div>
+            <div>
+              <StatusUpdateModal gameId={id as  string} />
             </div>
           </>
         )}

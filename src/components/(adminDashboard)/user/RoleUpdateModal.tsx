@@ -24,7 +24,7 @@ type FormData = {
 const roles = ["ADMIN"];
 
 const RoleUpdateModal = ({ isOpen, setIsOpen, user }: TPropsType) => {
-  console.log("RoleUpdateModal user", user);
+  // console.log("RoleUpdateModal user", user);
 
   const {
     register,
@@ -49,7 +49,7 @@ const RoleUpdateModal = ({ isOpen, setIsOpen, user }: TPropsType) => {
         role: data.role.toUpperCase(),
       },
     };
-    console.log("Updated Data:", updatedData);
+    // console.log("Updated Data:", updatedData);
 
     try {
       const res = await updateUserRole(updatedData);

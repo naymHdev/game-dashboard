@@ -1,28 +1,26 @@
 "use client";
 
-import { Image, message, Popconfirm, TableProps, Tag } from "antd";
+import { Image, TableProps, Tag } from "antd";
 import { useState } from "react";
 import DataTable from "@/utils/DataTable";
-import { Eye, Trash } from "lucide-react";
+import { Eye } from "lucide-react";
 import EditDetails from "./EditDetails";
 import { TGameSubmission } from "@/types/games";
-import { rejectGameEditRequest } from "@/services/games";
-import userProfile from "@/assets/image/profile-avatart.png";
 
-const confirmBlock = async (id: string) => {
-  try {
-    const res = await rejectGameEditRequest({ data: { updateId: id } });
-    console.log("res", res);
+// const confirmBlock = async (id: string) => {
+//   try {
+//     const res = await rejectGameEditRequest({ data: { updateId: id } });
+//     console.log("res", res);
 
-    if (res?.success) {
-      message.success("Game deleted successfully");
-    } else {
-      message.error(res?.message || "Failed to delete game");
-    }
-  } catch (error) {
-    message.error("Something went wrong!");
-  }
-};
+//     if (res?.success) {
+//       message.success("Game deleted successfully");
+//     } else {
+//       message.error(res?.message || "Failed to delete game");
+//     }
+//   } catch (error) {
+//     message.error("Something went wrong!");
+//   }
+// };
 
 const GameEditTable = ({
   gameEditData,
@@ -107,8 +105,9 @@ const GameEditTable = ({
       title: "Action",
       key: "action",
       width: 120,
+      align: "center",
       render: (_, record) => (
-        <div className="flex gap-3 items-center justify-center">
+        <div className="flex items-center justify-center">
           <Eye
             size={22}
             color="var(--color-text-color)"
@@ -119,19 +118,6 @@ const GameEditTable = ({
             className="cursor-pointer"
             title="View Details"
           />
-          <Popconfirm
-            title="Deny the edit request?"
-            onConfirm={() => confirmBlock(record?.id as string)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Trash
-              size={22}
-              color="#CD0335"
-              className="cursor-pointer"
-              title="Deny Request"
-            />
-          </Popconfirm>
         </div>
       ),
     },
