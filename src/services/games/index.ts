@@ -11,7 +11,7 @@ export const getGameEditRequest = async () => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/pending-game-updates`,
+      `${process.env.BASE_URL}/admin/pending-game-updates`,
       {
         method: "GET",
         headers: {
@@ -41,7 +41,7 @@ export const deleteGame = async (gameId: string) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/delete-game`,
+      `${process.env.BASE_URL}/admin/delete-game`,
       {
         method: "DELETE",
         body: JSON.stringify(gameId),
@@ -72,7 +72,7 @@ export const approveGameEditRequest = async (gameId: ApproveResponse) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/approve-game-update`,
+      `${process.env.BASE_URL}/admin/approve-game-update`,
       {
         method: "POST",
         body: JSON.stringify(gameId),
@@ -103,7 +103,7 @@ export const rejectGameEditRequest = async (updateId: string) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/reject-game-update`,
+      `${process.env.BASE_URL}/admin/reject-game-update`,
       {
         method: "DELETE",
         body: JSON.stringify(updateId),
@@ -134,7 +134,7 @@ export const getAllGames = async (page: number) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/getAllGame?page=${page}`,
+      `${process.env.BASE_URL}/admin/getAllGame?page=${page}`,
       {
         method: "GET",
         headers: {

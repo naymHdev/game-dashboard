@@ -6,7 +6,7 @@ import { jwtDecode } from "jwt-decode";
 export const adminSignIn = async (userData: FieldType) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/login`,
+      `${process.env.BASE_URL}/admin/login`,
       {
         method: "POST",
         headers: {
@@ -50,7 +50,7 @@ export const logout = async () => {
 export const allUser = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/find_all_users`,
+      `${process.env.BASE_URL}/admin/find_all_users`,
       {
         method: "GET",
         headers: {
@@ -72,7 +72,7 @@ export const updateUserRole = async (data: {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/update_user_to_admin`,
+      `${process.env.BASE_URL}/admin/update_user_to_admin`,
       {
         method: "PATCH",
         headers: {

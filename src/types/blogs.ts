@@ -21,4 +21,5 @@ export type BlogFormInputs = {
   description: string;
   altTag: string;
   rewards: Reward[];
+  published: boolean;
 };

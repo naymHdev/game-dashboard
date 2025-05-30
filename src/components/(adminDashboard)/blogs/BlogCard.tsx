@@ -13,10 +13,11 @@ type BlogCardProps = {
 };
 
 const BlogCard = ({ blog }: BlogCardProps) => {
-  const { id, title, blogImage, createdAt } = blog;
+  const { _id, title, blogImage, createdAt } = blog;
 
   // -------------- Delete Blog -------------- 
   const handleDeleteBlog = async (blogId: string) => {
+    console.log("blogId", blogId);
     const isBlog = {
       data: {
         blogId: blogId,
@@ -25,7 +26,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
 
     try {
       const res = await deleteBlog(isBlog);
-      // console.log(res);
+      console.log(res);
       if (res.success) {
         toast.success(res.message);
       } else {
@@ -44,7 +45,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
-          handleDeleteBlog(id as string);
+          handleDeleteBlog(_id as string);
         }}
         aria-label="Delete blog"
         className="absolute top-2 right-2 z-10 bg-red-600 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -53,7 +54,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
       </button>
 
       {/* Link wraps the card content */}
-      <Link href={`/blogs/${id}`} passHref>
+      <Link href={`/blogs/${_id}`} passHref>
         {/* Blog Image */}
         <div className=" rounded-md">
           <Image

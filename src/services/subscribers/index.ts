@@ -3,7 +3,7 @@
 export const getSubscribers = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/newsletter/findNewsletterMail`,
+      `${process.env.BASE_URL}/newsletter/findNewsletterMail`,
       {
         method: "GET",
         headers: {
@@ -28,7 +28,7 @@ export const deleteSubscriber = async (data: any) => {
   const token = cookies().get("accessToken")?.value;
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/newsletter/delete-newsletter`,
+      `${process.env.BASE_URL}/newsletter/delete-newsletter`,
       {
         method: "DELETE",
         body: JSON.stringify(data),

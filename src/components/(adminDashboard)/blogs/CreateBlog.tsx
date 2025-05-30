@@ -1,6 +1,5 @@
 "use client";
 
-
 import dynamic from "next/dynamic";
 
 import { useState } from "react";
@@ -84,9 +83,10 @@ const CreateBlog = () => {
       description: value,
       rewards: data.rewards,
       altTag: data.altTag,
+      published: data.published,
     };
 
-    // console.log("blogData", blogData);
+    console.log("blogData", blogData);
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(blogData));
@@ -95,7 +95,7 @@ const CreateBlog = () => {
     try {
       setLoading(true);
       const res = await createBlog(formData);
-      // console.log("createBlog res", res);
+      console.log("createBlog res", res);
       if (res.success) {
         toast.success(res.message);
         reset();
@@ -321,6 +321,31 @@ const CreateBlog = () => {
               {(errors.rewards as any).message}
             </p>
           )}
+        </div>
+
+        {/* Publish or Draft */}
+        <div className="flex flex-col">
+          <label className="text-sm text-white font-medium mb-2">
+            Blog Status
+          </label>
+          <Controller
+            control={control}
+            name={"published"}
+            rules={{ required: "Validity selection is required" }}
+            defaultValue={true}
+            render={({ field }) => (
+              <Radio.Group
+                {...field}
+                className="w-full"
+                buttonStyle="solid"
+                optionType="button"
+                options={[
+                  { label: "Published", value: true },
+                  { label: "Draft", value: false },
+                ]}
+              />
+            )}
+          />
         </div>
 
         {/* Submit Button */}
