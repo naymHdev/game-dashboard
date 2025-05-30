@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 export const getAllUserRequests = async () => {
@@ -13,7 +14,9 @@ export const getAllUserRequests = async () => {
           "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
         },
-        cache: "no-store",
+        next: {
+          tags: ["USER"],
+        },
       }
     );
 
@@ -46,6 +49,7 @@ export const updateUserRequest = async (data: any) => {
     );
 
     const result = await res.json();
+    revalidateTag("USER");
     return result;
   } catch (error: any) {
     console.error("Update User Request Error:", error);
@@ -60,20 +64,18 @@ export const updateUserRequest = async (data: any) => {
 export const deleteUser = async (data: any) => {
   const token = cookies().get("accessToken")?.value;
   try {
-    const res = await fetch(
-      `${process.env.BASE_URL}/admin/delete-user`,
-      {
-        method: "DELETE",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-        cache: "no-store",
-      }
-    );
+    const res = await fetch(`${process.env.BASE_URL}/admin/delete-user`, {
+      method: "DELETE",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      cache: "no-store",
+    });
 
     const result = await res.json();
+    revalidateTag("USER");
     return result;
   } catch (error: any) {
     console.error("Delete User Error:", error);
@@ -102,6 +104,7 @@ export const rejectUserRequest = async (data: any) => {
     );
 
     const result = await res.json();
+    revalidateTag("USER");
     return result;
   } catch (error: any) {
     console.error("Reject User Request Error:", error);

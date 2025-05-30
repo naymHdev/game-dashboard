@@ -20,7 +20,7 @@ const confirmBlock = async (id: string) => {
       },
     };
     const res = await deleteGame(deleteInfo);
-    // console.log("res", res);
+    console.log("res", res);
 
     if (res?.success) {
       toast.success("User deleted successfully");

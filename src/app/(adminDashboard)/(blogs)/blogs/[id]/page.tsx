@@ -1,5 +1,4 @@
-import { getAllBlogs } from "@/services/blog";
-import { TBlogs } from "@/types/blogs";
+import { getSingleBlog } from "@/services/blog";
 import Image from "next/image";
 import parse from "html-react-parser";
 import moment from "moment";
@@ -11,12 +10,14 @@ type Props = {
 const BlogDetailsPage = async ({ params }: Props) => {
   const { id } = params;
 
-  const { data: blogs } = await getAllBlogs(1);
-  const blogDetails = blogs?.allBlogs.find((blog: TBlogs) => blog.id === id);
+  const singleBlogs = await getSingleBlog(id);
+  const blogDetails = singleBlogs.data;
 
   if (!blogDetails) {
     return (
-      <div className="p-8 text-center text-white text-xl">Blog not found.</div>
+      <div className="p-8 text-center text-white text-xl">
+        Blog details not found.
+      </div>
     );
   }
 

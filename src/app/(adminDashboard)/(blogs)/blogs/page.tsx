@@ -7,7 +7,7 @@ import { FaPlus } from "react-icons/fa6";
 const BlogsPage = async ({ searchParams }) => {
   const page = searchParams.page || 1;
   const blogs = await getAllBlogs(page);
-  //   console.log(blogs);
+    // console.log( " blogs",  blogs);
 
   return (
     <>

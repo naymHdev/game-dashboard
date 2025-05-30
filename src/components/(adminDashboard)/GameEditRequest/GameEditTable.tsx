@@ -13,10 +13,26 @@ import DataTable from "@/utils/DataTable";
 import { Eye, Trash } from "lucide-react";
 import EditDetails from "./EditDetails";
 import { TGameSubmission } from "@/types/games";
+import { deleteGame } from "@/services/games";
 
-const confirmBlock: PopconfirmProps["onConfirm"] = (e) => {
-  console.log(e);
-  message.success("Denied the edit request");
+const confirmBlock = async (id: string) => {
+  try {
+    const deleteInfo = {
+      data: {
+        gameId: id,
+      },
+    };
+    const res = await deleteGame(deleteInfo);
+    console.log("res", res);
+
+    if (res?.success) {
+      message.success("Game deleted successfully");
+    } else {
+      message.error(res?.message || "Failed to delete game");
+    }
+  } catch (error) {
+    message.error("Something went wrong!");
+  }
 };
 
 const GameEditTable = ({
@@ -25,7 +41,9 @@ const GameEditTable = ({
   gameEditData: TGameSubmission[];
 }) => {
   const [open, setOpen] = useState(false);
-  const [selectedGame, setSelectedGame] = useState<TGameSubmission | null>(null);
+  const [selectedGame, setSelectedGame] = useState<TGameSubmission | null>(
+    null
+  );
 
   const columns: TableProps<TGameSubmission>["columns"] = [
     {
@@ -114,7 +132,7 @@ const GameEditTable = ({
           />
           <Popconfirm
             title="Deny the edit request?"
-            onConfirm={confirmBlock}
+            onConfirm={() => confirmBlock(record?.id as string)}
             okText="Yes"
             cancelText="No"
           >

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import userProfile from "@/assets/image/userImage.png";
+import userProfile from "@/assets/image/profile-avatart.png";
 import { Button, message, Popconfirm } from "antd";
 import React, { useState } from "react";
 import UserModal from "./UserModal";
@@ -15,18 +15,18 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
 
   // ---------- Accept User ---------- \\
   const handleAcceptRequest = async (id: string) => {
-    console.log(id);
+    // console.log(id);
     const acceptedData = {
       data: {
         updateId: id,
       },
     };
 
-    console.log("acceptedData", acceptedData);
+    // console.log("acceptedData", acceptedData);
 
     try {
       const res = await updateUserRequest(acceptedData);
-      console.log(res);
+      // console.log(res);
       if (res.success) {
         toast.success(res.message);
       } else {
@@ -68,8 +68,8 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
         alt="profile_image"
         className="size-20 cursor-pointer rounded-full"
         onClick={() => setOpen(true)}
-        width={40}
-        height={40}
+        width={1000}
+        height={1000}
       ></Image>
       <div className="space-y-2 ">
         <h3

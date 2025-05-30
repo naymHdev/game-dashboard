@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 type ApproveResponse = {
   data: {
@@ -39,22 +40,20 @@ export const getGameEditRequest = async () => {
 
 export const deleteGame = async (gameId: string) => {
   const token = cookies().get("accessToken")?.value;
+  console.log(token);
   try {
-    const res = await fetch(
-      `${process.env.BASE_URL}/admin/delete-game`,
-      {
-        method: "DELETE",
-        body: JSON.stringify(gameId),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-        next: {
-          tags: ["GAMES"],
-        },
-        cache: "no-store",
-      }
-    );
+    const res = await fetch(`${process.env.BASE_URL}/admin/delete-game`, {
+      method: "DELETE",
+      body: JSON.stringify(gameId),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      next: {
+        tags: ["GAMES"],
+      },
+      cache: "no-store",
+    });
 
     const data = await res.json();
     return data;
@@ -80,14 +79,11 @@ export const approveGameEditRequest = async (gameId: ApproveResponse) => {
           "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
         },
-        next: {
-          tags: ["GAMES"],
-        },
-        cache: "no-store",
       }
     );
 
     const data = await res.json();
+    revalidateTag("GAMES");
     return data;
   } catch (error: any) {
     console.error("approveGameEditRequest Error:", error);

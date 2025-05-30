@@ -15,9 +15,9 @@ type BlogCardProps = {
 const BlogCard = ({ blog }: BlogCardProps) => {
   const { _id, title, blogImage, createdAt } = blog;
 
-  // -------------- Delete Blog -------------- 
+  // -------------- Delete Blog --------------
   const handleDeleteBlog = async (blogId: string) => {
-    console.log("blogId", blogId);
+    // console.log("blogId", blogId);
     const isBlog = {
       data: {
         blogId: blogId,
@@ -26,7 +26,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
 
     try {
       const res = await deleteBlog(isBlog);
-      console.log(res);
+      // console.log(res);
       if (res.success) {
         toast.success(res.message);
       } else {
@@ -56,13 +56,14 @@ const BlogCard = ({ blog }: BlogCardProps) => {
       {/* Link wraps the card content */}
       <Link href={`/blogs/${_id}`} passHref>
         {/* Blog Image */}
-        <div className=" rounded-md">
+
+        <div className="rounded-lg w-full">
           <Image
-            className=" rounded-md"
             src={blogImage || "/default-blog-image.png"}
-            alt={title}
-            width={500}
-            height={500}
+            alt="Blog Title"
+            width={400}
+            height={250}
+            className="rounded-lg object-center w-[400px] h-[250px]"
           />
         </div>
 

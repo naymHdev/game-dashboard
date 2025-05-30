@@ -30,16 +30,37 @@ export const getAllBlogs = async (page: number) => {
     };
   }
 };
+export const getSingleBlog = async (id: string) => {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/blog/getAllBlog/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "force-cache",
+      next: {
+        tags: ["Blogs"],
+      },
+    });
+
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    console.error("getSingleBlog Error:", error);
+    return {
+      success: false,
+      message: "Internal server error",
+      error: error?.message || error,
+    };
+  }
+};
 
 export const createBlog = async (blogData: FormData) => {
   try {
-    const res = await fetch(
-      `${process.env.BASE_URL}/blog/create-blog`,
-      {
-        method: "POST",
-        body: blogData,
-      }
-    );
+    const res = await fetch(`${process.env.BASE_URL}/blog/create-blog`, {
+      method: "POST",
+      body: blogData,
+    });
     const data = await res.json();
     revalidateTag("Blogs");
     return data;
@@ -56,17 +77,14 @@ export const createBlog = async (blogData: FormData) => {
 export const deleteBlog = async (blogId: string) => {
   const token = cookies().get("accessToken")?.value;
   try {
-    const res = await fetch(
-      `${process.env.BASE_URL}/blog/delete-blog`,
-      {
-        method: "DELETE",
-        body: JSON.stringify(blogId),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-      }
-    );
+    const res = await fetch(`${process.env.BASE_URL}/blog/delete-blog`, {
+      method: "DELETE",
+      body: JSON.stringify(blogId),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
 
     const data = await res.json();
     revalidateTag("Blogs");

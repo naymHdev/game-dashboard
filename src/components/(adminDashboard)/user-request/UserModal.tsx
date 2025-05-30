@@ -1,63 +1,67 @@
-"use client"
+"use client";
 
-import { Modal } from "antd"
-import Image from "next/image"
-import { ExternalLink, Calendar, User, LinkIcon } from "lucide-react"
+import { Modal } from "antd";
+import Image from "next/image";
+import { ExternalLink, Calendar, User, LinkIcon } from "lucide-react";
+import userProfile from "@/assets/image/profile-avatart.png";
 
 interface ILink {
-  id: string
-  name: string
-  link: string
-  _id: string
+  id: string;
+  name: string;
+  link: string;
+  _id: string;
 }
 
 interface IUser {
-  userId: string
-  name: string
-  userName: string
-  bio: string
-  links: ILink[]
-  photo: string
-  status: string
-  submittedAt: string
-  updatedAt: string
-  createdAt: string
-  id: string
+  userId: string;
+  name: string;
+  userName: string;
+  bio: string;
+  links: ILink[];
+  photo: string;
+  status: string;
+  submittedAt: string;
+  updatedAt: string;
+  createdAt: string;
+  id: string;
 }
 
 type TPropsType = {
-  open: boolean
-  setOpen: (collapsed: boolean) => void
-  user: IUser | null
-}
+  open: boolean;
+  setOpen: (collapsed: boolean) => void;
+  user: IUser | null;
+};
 
 const UserModal = ({ open, setOpen, user }: TPropsType) => {
-  if (!user) return null
+
+  // console.log("user", user);
+
+  if (!user) return null;
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200"
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
       case "approved":
-        return "bg-green-100 text-green-800 border-green-200"
+        return "bg-green-100 text-green-800 border-green-200";
       case "rejected":
-        return "bg-red-100 text-red-800 border-red-200"
+        return "bg-red-100 text-red-800 border-red-200";
       default:
-        return "bg-gray-100 text-gray-100 border-gray-200"
+        return "bg-gray-100 text-gray-100 border-gray-200";
     }
-  }
+  };
 
   const handleLinkClick = (url: string) => {
-    window.open(url, "_blank", "noopener,noreferrer")
-  }
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <Modal
@@ -72,8 +76,8 @@ const UserModal = ({ open, setOpen, user }: TPropsType) => {
         <div className="flex justify-center items-center">
           <div className="relative w-32 h-32">
             <Image
-              className="rounded-full border-4 border-white shadow-lg object-cover"
-              src={user.photo || "/placeholder.svg?height=128&width=128"}
+              className="rounded-full border-none shadow-lg object-cover"
+              src={user.photo || userProfile}
               alt={`${user.name} profile image`}
               fill
               sizes="128px"
@@ -86,7 +90,11 @@ const UserModal = ({ open, setOpen, user }: TPropsType) => {
           <p className="text-gray-300 text-lg mt-1">{user.userName}</p>
 
           <div className="flex justify-center mt-3">
-            <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(user.status)}`}>
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(
+                user.status
+              )}`}
+            >
               {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
             </span>
           </div>
@@ -101,7 +109,9 @@ const UserModal = ({ open, setOpen, user }: TPropsType) => {
               <User className="w-5 h-5" />
               Bio
             </h3>
-            <p className="text-gray-100 leading-relaxed bg-[#1B1B20] p-4 rounded-lg">{user.bio}</p>
+            <p className="text-gray-100 leading-relaxed bg-[#1B1B20] p-4 rounded-lg">
+              {user.bio}
+            </p>
           </div>
         )}
 
@@ -125,7 +135,9 @@ const UserModal = ({ open, setOpen, user }: TPropsType) => {
                     </div>
                     <div>
                       <p className="font-medium text-gray-100">{link.name}</p>
-                      <p className="text-sm text-[#1B1B20]0 truncate max-w-xs">{link.link}</p>
+                      <p className="text-sm text-[#1B1B20]0 truncate max-w-xs">
+                        {link.link}
+                      </p>
                     </div>
                   </div>
                   <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-gray-100" />
@@ -142,7 +154,9 @@ const UserModal = ({ open, setOpen, user }: TPropsType) => {
               <Calendar className="w-4 h-4" />
               Submitted
             </h4>
-            <p className="text-gray-100 text-sm">{formatDate(user.submittedAt)}</p>
+            <p className="text-gray-100 text-sm">
+              {formatDate(user.submittedAt)}
+            </p>
           </div>
 
           <div className="bg-[#1B1B20] p-4 rounded-lg">
@@ -150,7 +164,9 @@ const UserModal = ({ open, setOpen, user }: TPropsType) => {
               <Calendar className="w-4 h-4" />
               Last Updated
             </h4>
-            <p className="text-gray-100 text-sm">{formatDate(user.updatedAt)}</p>
+            <p className="text-gray-100 text-sm">
+              {formatDate(user.updatedAt)}
+            </p>
           </div>
         </div>
 
@@ -161,7 +177,7 @@ const UserModal = ({ open, setOpen, user }: TPropsType) => {
         </div>
       </div>
     </Modal>
-  )
-}
+  );
+};
 
-export default UserModal
+export default UserModal;
