@@ -104,16 +104,17 @@ const UsersTable = ({
     {
       title: "Action",
       dataIndex: "action",
+      align: "center",
       render: (_, record) => (
-        <div className="flex gap-2">
-          <Eye
+        <div className=" flex items-center justify-center">
+          {/* <Eye
             size={22}
             className="cursor-pointer"
             onClick={() => {
               setSelectedUser(record);
               setOpen(true);
             }}
-          />
+          /> */}
           <Popconfirm
             title="Delete the user"
             description="Are you sure to delete this user?"

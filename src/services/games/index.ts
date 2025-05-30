@@ -107,14 +107,11 @@ export const rejectGameEditRequest = async (updateId: string) => {
           "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
         },
-        next: {
-          tags: ["GAMES"],
-        },
-        cache: "no-store",
       }
     );
 
     const data = await res.json();
+    revalidateTag("GAMES");
     return data;
   } catch (error: any) {
     console.error("rejectGameEditRequest Error:", error);

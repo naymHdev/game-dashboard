@@ -22,8 +22,6 @@ const UserRequestCard = ({ data }: { data: IUser }) => {
       },
     };
 
-    // console.log("acceptedData", acceptedData);
-
     try {
       const res = await updateUserRequest(acceptedData);
       // console.log(res);

@@ -10,6 +10,7 @@ import {
   rejectGameEditRequest,
 } from "@/services/games";
 import { toast } from "sonner";
+import userProfile from "@/assets/image/profile-avatart.png";
 
 type TPropsType = {
   open: boolean;
@@ -18,6 +19,9 @@ type TPropsType = {
 };
 
 const EditDetails = ({ open, setOpen, details }: TPropsType) => {
+
+  console.log("details", details);
+
   if (!details) return null;
 
   // console.log("details", details);
@@ -93,11 +97,11 @@ const EditDetails = ({ open, setOpen, details }: TPropsType) => {
       <div className="space-y-6 text-white text-base">
         <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
           <Image
-            src={details?.thumbnail || "/user-profile.png"}
+            src={details?.thumbnail || userProfile}
             alt={`${details?.title} Thumbnail`}
-            width={180}
-            height={100}
-            className="rounded-lg object-cover"
+            width={1000}
+            height={1000}
+            className=" rounded-full w-[250px] h-[250px]"
           />
           <div className="flex-1">
             <h3 className="text-3xl font-extrabold text-primary-light">

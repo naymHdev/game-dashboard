@@ -1,28 +1,17 @@
 "use client";
 
-import {
-  Image,
-  message,
-  Popconfirm,
-  PopconfirmProps,
-  TableProps,
-  Tag,
-} from "antd";
+import { Image, message, Popconfirm, TableProps, Tag } from "antd";
 import { useState } from "react";
 import DataTable from "@/utils/DataTable";
 import { Eye, Trash } from "lucide-react";
 import EditDetails from "./EditDetails";
 import { TGameSubmission } from "@/types/games";
-import { deleteGame } from "@/services/games";
+import { rejectGameEditRequest } from "@/services/games";
+import userProfile from "@/assets/image/profile-avatart.png";
 
 const confirmBlock = async (id: string) => {
   try {
-    const deleteInfo = {
-      data: {
-        gameId: id,
-      },
-    };
-    const res = await deleteGame(deleteInfo);
+    const res = await rejectGameEditRequest({ data: { updateId: id } });
     console.log("res", res);
 
     if (res?.success) {
@@ -59,7 +48,7 @@ const GameEditTable = ({
       render: (text, record) => (
         <div className="flex items-center gap-x-2">
           <Image
-            src={record.image[0] || "/user-profile.png"}
+            src={record.image[0] || "avatar.png"}
             alt={record.title}
             width={40}
             height={40}

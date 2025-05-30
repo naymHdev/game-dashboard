@@ -1,6 +1,8 @@
 import { IUser } from "@/types";
 import { Modal } from "antd";
 import { RiCloseLine } from "react-icons/ri";
+import pImage from "@/assets/image/profile-avatart.png";
+import Image from "next/image";
 
 type TPropsType = {
   open: boolean;
@@ -35,11 +37,12 @@ const UserDetails = ({ open, setOpen, user }: TPropsType) => {
 
       {/* Profile Photo */}
       <div className="flex justify-center mb-6">
-        <img
+        <Image
           src={user.photo || "/default-profile.png"}
           alt={user.name || "User profile"}
           className="w-24 h-24 rounded-full object-cover border-2 border-main-color"
-          loading="lazy"
+          width={100}
+          height={100}
         />
       </div>
 
